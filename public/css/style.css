@@ -1,134 +1,7 @@
-body {
+
+* {
     margin: 0;
-}
-
-.container {
-    width: 100vw;
-    height: 100vh;
-    /* background: transparent linear-gradient(100deg, #FFC107 0%, #FF9800 100%) 0% 0% no-repeat padding-box; */
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.container.logo {
-    width: 100%;
-    height: 100%;
-}
-
-.login-container {
-    width: 15%  ;
-}
-
-form.login {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-input.email {
-    width: 90%;
-    line-height: 2.5em;
-
-    background: #FFFFFF;
-    border: 1px solid #D9D9D9;
-    border-radius: 8px;
-    margin: 0.5em;
-    margin-top: 2em;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-input.password {
-    width: 90%;
-    line-height: 2.5em;
-
-    color: #2C2C2C;
-    background: #FFFFFF;
-    border: 1px solid #D9D9D9;
-    border-radius: 8px;
-    margin: 0.5em;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-a.change-password {
-    margin: 0.5em;
-    
-    font-size: small;
-
-    font-family: 'Inter';
-    font-style: normal;
-    
-    text-decoration-line: underline;
-
-    color: #757575;
-}
-
-button.sign-in {
-    width: 100%;
-    line-height: 2.5em;
-    color: white;
-    margin: 0.5em;
-
-    background: #2C2C2C;
-    border: 1px solid #2C2C2C;
-    border-radius: 8px;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-button.sign-up {    
-    width: 100%;
-    line-height: 2.5em;
-    color: white;
-    margin: 0.5em;
-
-    background: #CDCDCD;
-    border: 1px solid #CDCDCD;
-    border-radius: 8px;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-@media only screen and (max-device-width: 430px) {
-    .container {
-        flex-direction: column;
-    }
-    * {
-        font-size: 36px;
-    }
-
-    .login-container {
-        width: 75%;
-    }
-
-    form {
-        margin: auto;
-    }
-
-    button.sign-in {
-        border-radius: 16px;
-    }
-
-    button.sign-up {
-        border-radius: 16px;
-    }
-
-    img {
-        height: 10em;
-        margin: 2em;
-    }
-
-    a.change-password {
-        font-size: 36px;
-    }
-    
+    padding: 0;
 }
 
 .base-container {
@@ -139,7 +12,7 @@ button.sign-up {
 }
 
 nav {
-    width: 20vw;
+    width: 30vw;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -163,6 +36,11 @@ a {
     text-decoration: none;
     display: inline-block;
     line-height: 1.5em;
+}
+
+li {
+    display: flex;
+    flex-direction: row;
 }
 
 li i {
@@ -194,6 +72,10 @@ ul {
 }
 
 li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
     text-align: left;
     color: white;
     margin-bottom: 1em;
@@ -202,6 +84,11 @@ li {
 .fa, 
 .fas {
     width: 1em;
+    color: white;
+}
+
+i {
+    color: white;
 }
 
 main {

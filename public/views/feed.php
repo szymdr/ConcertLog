@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/posts.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/posts.css">
+    <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
     <script src="https://kit.fontawesome.com/7ae6ad35c3.js" crossorigin="anonymous"></script>
-    <title>Main Page</title>
+    <title>ConcertLog • Main Page</title>
 </head>
 <body>
     <div class = "base-container">
         <nav>
-            <img src = "../img/logo-nazwa-biala.svg">
+            <img src = "public/img/logo-nazwa-biala.svg">
             <ul>
                 <li>
                     <i class="fa-solid fa-house"></i>
-                    <a href="#" class="button">Feed</a>
+                    <a href="feed" class="button">Feed</a>
                 </li>
                 <li>
                     <i class="fa-solid fa-user-group"></i>
-                    <a href="#" class="button">Friends</a>
+                    <a href="friends" class="button">Friends</a>
                 </li>
                 <li>
                     <i class="fa-solid fa-plus"></i>
-                    <a href="#" class="button">Add concert</a>
+                    <a href="addconcert" class="button">Add concert</a>
                 </li>
                 <li>
                     <i class="fa-solid fa-user"></i>
-                    <a href="#" class="button">Profile</a>
+                    <a href="profile" class="button">Profile</a>
                 </li>
             </ul>
+            <div class="logout">
+                <ul>
+                    <li>
+                    <i class="fa-solid fa-sign-out"></i>
+                    <a href="logout" class="button">Logout</a>
+                    </li>
+                </ul>
+            </div>
 
         </nav>
         <main>
@@ -36,13 +45,12 @@
                     <form>
                         <input placeholder="Search">
                     </form>
-
                 </div>
 
             </header>
             <section class = "feed">
                 <div id="post-1">
-                    <img src="../img/uploads/concert1.jpg">
+                    <img src="public/uploads/concert1.jpg">
                     <div>
                         <h2>Concert 1</h2>
                         <p>description</p>
@@ -53,7 +61,7 @@
                     </div>
                 </div>
                 <div id="post-2">
-                    <img src="../img/uploads/concert2.jpg">
+                    <img src="public/img/uploads/concert2.jpg">
                     <div>
                         <h2>Concert 2</h2>
                         <p>description</p>
@@ -64,7 +72,7 @@
                     </div>
                 </div>
                 <div id="post-3">
-                    <img src="../img/uploads/concert1.jpg">
+                    <img src="public/img/uploads/concert1.jpg">
                     <div>
                         <h2>Concert 3</h2>
                         <p>description</p>
@@ -75,7 +83,7 @@
                     </div>
                 </div>
                 <div id="post-4">
-                    <img src="../img/uploads/concert1.jpg">
+                    <img src="public/img/uploads/concert1.jpg">
                     <div>
                         <h2>Concert 4</h2>
                         <p>description</p>
@@ -86,7 +94,7 @@
                     </div>
                 </div>
                 <div id="post-5">
-                    <img src="../img/uploads/concert1.jpg">
+                    <img src="public/img/uploads/concert1.jpg">
                     <div>
                         <h2>Concert 5</h2>
                         <p>description</p>
