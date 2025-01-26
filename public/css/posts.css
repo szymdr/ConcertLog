@@ -2,32 +2,33 @@ body {margin:0;padding:0}
 
 section {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 2em;  
+    grid-template-columns: repeat(auto-fit, minmax(30em, 1fr));
+    grid-gap: 2em;
     padding: 2em;
-    overflow: auto;
-    justify-content: center;
+    justify-items: center;
+    overflow-y: scroll
 }
 
 .feed>div {
-    display: grid;
-    justify-content: center;
-    grid-gap: 0;
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 30em;
+    box-sizing: border-box; 
 }
 
 .feed>div>img {
-    width: 30em;
+    width: 100%; 
     height: auto;
-    object-fit: cover;
-    border-radius: 1em 1em 0 0;;
+    object-fit: cover; 
+    border-radius: 1em 1em 0 0;
 }
 
 .feed>div>div {
     font: 1em Arial;
-    width: calc(30em - 1em - 2em);
-    border: 0.5em solid #2C2C2C;
+    border: 0.4em solid #2C2C2C;
     border-radius: 0 0 1em 1em;
-    padding: 0 1em 1em 1em;
-    margin: 0;
+    padding: 1em;
+    box-sizing: border-box;
+    background-color: #fff;
 }
