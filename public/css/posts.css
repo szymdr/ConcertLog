@@ -32,3 +32,7 @@ section {
     box-sizing: border-box;
     background-color: #fff;
 }
+
+.social-setion > i {
+    color: #2C2C2C;
+}

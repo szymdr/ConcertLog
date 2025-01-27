@@ -41,18 +41,41 @@ a {
 li {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
+    
+    text-align: left;
+    color: white;
+    margin-bottom: 1em;
 }
 
-li i {
+li.profile {
+    align-items: center;
+}
+
+li i, li img {
     font-size: 1.5em;
-    width: 0.5em; /* Ustawienie stałej szerokości */
-    height: 0.5em; /* Ustawienie stałej wysokości */
-    flex-shrink: 0; /* Zapobieganie zmniejszaniu */
+    width: 0.5em;
+    height: 0.5em;
+    flex-shrink: 0;
+ 
+}
+li img {
+    width: 1em;
+    height: 1em;
  
 }
 .button {
     border: none;
     margin-left: 1.5em;
+    text-align: left;
+    letter-spacing: 0.72px;
+    color: #FFFFFF;
+    padding: 0.2rem;
+    width: 60%;
+}
+.button-profile {
+    border: none;
+    margin-left: 1em;
     text-align: left;
     letter-spacing: 0.72px;
     color: #FFFFFF;
@@ -71,23 +94,12 @@ ul {
     margin: 0 auto;
 }
 
-li {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-
-    text-align: left;
-    color: white;
-    margin-bottom: 1em;
-}
-
-.fa, 
-.fas {
+.fa, .fas {
     width: 1em;
     color: white;
 }
 
-i {
+nav.i {
     color: white;
 }
 
