@@ -9,6 +9,9 @@
     <title>ConcertLog • Profile</title>
 </head>
 <body>
+    <script src="public/js/popup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <div class="base-container">
         <nav>
             <img src="public/img/logo-nazwa-biala.svg" alt="Logo">
@@ -68,14 +71,9 @@
                 <section class="stats-grid">
                     <div class="stats-box-years">
                         <h2>Concerts Per Year</h2>
-                        <ul>
-                            <li>2025 <span>15</span></li>
-                            <li>2024 <span>12</span></li>
-                            <li>2023 <span>9</span></li>
-                            <li>2022 <span>8</span></li>
-                            <li>2021 <span>7</span></li>
-                        </ul>
+                        <canvas id="concertsChart"></canvas>
                     </div>
+
                     <div class="stats-box">
                         <h2>Top Artists</h2>
                         <ul>
@@ -132,7 +130,25 @@
             </form>
         </div>
     </div>
-
-    <script src="public/js/popup.js"></script>
 </body>
 </html>
+
+<?php
+// Przykładowe dane z bazy danych
+$concertsPerYear = [
+    "2018" => 3,
+    "2019" => 5,
+    "2020" => 6,
+    "2021" => 7,
+    "2022" => 8,
+    "2023" => 9,
+    "2024" => 12,
+    "2025" => 15
+];
+?>
+
+
+<script>
+    const concertsPerYear = <?php echo json_encode($concertsPerYear); ?>;
+</script>
+<script src="public/js/chart.js"></script>
