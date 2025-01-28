@@ -48,65 +48,66 @@
                 </div>
 
             </header>
-            <section class = "feed">
-                <div id="post-1">
-                    <img src="public/uploads/concert1.jpg">
-                    <div>
-                        <h2>Concert 1</h2>
-                        <p>description</p>
-                        <div class="social-section">
-                            <i class="fa-solid fa-heart"> 666</i>
-                            <i class="fa-solid fa-bookmark"> 2</i>
+            <section class="feed">
+                <?php foreach ($concerts as $concert): ?>
+                <div class="post">
+                    <div class="carousel">
+                        <div class="carousel-track">
+                            <?php foreach ($concert->getImages() as $image): ?>
+                            <img src="public/uploads/<?= htmlspecialchars($image); ?>" alt="Concert image">
+                            <?php endforeach; ?>
                         </div>
+                        <button class="carousel-button prev">&lt;</button>
+                        <button class="carousel-button next">&gt;</button>
+                    </div>
+                    <div class="details">
+                        <h2><?= htmlspecialchars($concert->getTitle()); ?></h2>
+                        <p><strong>Artist:</strong> <?= htmlspecialchars($concert->getArtist()); ?></p>
+                        <p><strong>Date:</strong> <?= htmlspecialchars($concert->getDate()); ?></p>
+                        <p><strong>Venue:</strong> <?= htmlspecialchars($concert->getVenue()); ?></p>
+                        <p><strong>Location:</strong> <?= htmlspecialchars($concert->getLocation()); ?></p>
                     </div>
                 </div>
-                <div id="post-2">
-                    <img src="public/img/uploads/concert2.jpg">
-                    <div>
-                        <h2>Concert 2</h2>
-                        <p>description</p>
-                        <div class="social-section">
-                            <i class="fa-solid fa-heart"> 666</i>
-                            <i class="fa-solid fa-bookmark"> 2</i>
-                        </div>
-                    </div>
-                </div>
-                <div id="post-3">
-                    <img src="public/img/uploads/concert1.jpg">
-                    <div>
-                        <h2>Concert 3</h2>
-                        <p>description</p>
-                        <div class="social-section">
-                            <i class="fa-solid fa-heart"> 666</i>
-                            <i class="fa-solid fa-bookmark"> 2</i>
-                        </div>
-                    </div>
-                </div>
-                <div id="post-4">
-                    <img src="public/img/uploads/concert1.jpg">
-                    <div>
-                        <h2>Concert 4</h2>
-                        <p>description</p>
-                        <div class="social-section">
-                            <i class="fa-solid fa-heart"> 666</i>
-                            <i class="fa-solid fa-bookmark"> 2</i>
-                        </div>
-                    </div>
-                </div>
-                <div id="post-5">
-                    <img src="public/img/uploads/concert1.jpg">
-                    <div>
-                        <h2>Concert 5</h2>
-                        <p>description</p>
-                        <div class="social-section">
-                            <i class="fa-solid fa-heart"> 666</i>
-                            <i class="fa-solid fa-bookmark"> 2</i>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </section>
+
         </main>
     </div>
     
 </body>
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const carousels = document.querySelectorAll(".carousel");
+
+        carousels.forEach(carousel => {
+            const track = carousel.querySelector(".carousel-track");
+            const nextButton = carousel.querySelector(".carousel-button.next");
+            const prevButton = carousel.querySelector(".carousel-button.prev");
+            const images = Array.from(track.children);
+            const imageWidth = images[0].getBoundingClientRect().width;
+
+            let currentIndex = 0;
+
+            const updateCarousel = () => {
+                track.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
+            };
+
+            nextButton.addEventListener("click", () => {
+                if (currentIndex < images.length - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            prevButton.addEventListener("click", () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+        });
+    });
+</script>
+

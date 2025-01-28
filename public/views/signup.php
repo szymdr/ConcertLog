@@ -11,7 +11,7 @@
             <img src="public/img/logo-nazwa.svg">
         </div>
         <div class="sign-up-container">
-            <form class="sign-up">
+            <form class="sign-up" action="signup" method="POST">
                 <input class="username" name="username" type="text" placeholder="Username">
                 <input class="email" name="email" type="text" value="<?PHP echo reset($email);?>" placeholder="E-mail">
                 <input class="password" name="password" type="password" placeholder="Password">

@@ -18,30 +18,28 @@ class SecurityController extends AppController {
 
 
         if (!$this->isPost()) {
-            return $this->render('login');
+            return $this->render('login', ['email' => ['']]);
         }
 
         $email = $_POST['email'];
 
-        $user = $this->userRepository->getUser($email);
-
-       // $user = new User('admin', 'admin', 'John', 'Doe');
-
-        if (!$user) {
-            return $this->render('login', ['messages' => ['User not found!']]);
-        }
-
-
         if (isset($_POST['sign-in'])) {
+    
+            $user = $this->userRepository->getUser($email);
+            // $user = new User('admin', 'admin', 'John', 'Doe');
+
+            if (!$user) {
+                return $this->render('login', ['messages' => ['User not found!'], 'email' => [$email]]);
+            }
 
             $password = $_POST['password'];
     
             if ($user->getEmail() !== $email) {
-                return $this->render('login', ['messages' => ['User with this email does not exist!']]);
+                return $this->render('login', ['messages' => ['User with this email does not exist!'], 'email' => [$email]]);
             }
     
             if ($user->getPassword() !== $password) {
-                return $this->render('login', ['messages' => ['Wrong password!']]);
+                return $this->render('login', ['messages' => ['Wrong password!'], 'email' => [$email]]);
             }
     
             $url = "http://$_SERVER[HTTP_HOST]";
@@ -49,13 +47,13 @@ class SecurityController extends AppController {
           } else {
             return $this->render('signup', ['email' => [$email]]);
           }
-    }
+    }   
     public function signup()
     {
-        $this->render('signup');
+        $this->render('signup', ['email' => ['']]);
     }
     public function logout()
     {
-        $this->render('login');
+        $this->render('login', ['email' => ['']]);
     }
 }

@@ -1,16 +1,19 @@
 <?php
 
 require_once 'AppController.php';
+require_once __DIR__.'/../repository/ConcertRepository.php';
 
 class DefaultController extends AppController {
 
     public function index()
     {
-        $this->render('login');
+        $this->render('login', ['email' => ['']]);
     }
     public function feed()
     {
-        $this->render('feed');
+        $concertRepository = new ConcertRepository();
+        $concerts = $concertRepository->getConcerts();
+        $this->render('feed', ['concerts' => $concerts]);  
     }
     public function changepassword()
     {

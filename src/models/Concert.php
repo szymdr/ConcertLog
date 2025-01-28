@@ -15,7 +15,7 @@ class Concert
         string $title,
         string $venue,
         string $location,
-        string $images
+        array $images
     ) {
         $this->artist = $artist;
         $this->date = $date;
