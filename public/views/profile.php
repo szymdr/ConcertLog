@@ -28,10 +28,20 @@
                     <i class="fa-solid fa-plus"></i>
                     <a href="addconcert" class="button">Add concert</a>
                 </li>
-                <li>
-                    <i class="fa-solid fa-user"></i>
-                    <a href="profile" class="button">Profile</a>
+                <li class="navigation-profile">
+                    
+                    <img src = "public/img/profile_picture.png"></img>
+                    <a href="profile" class="button-profile">Profile</a>
                 </li>
+            </ul>
+            <div class="logout">
+                <ul>
+                    <li>
+                    <i class="fa-solid fa-sign-out"></i>
+                    <a href="logout" class="button">Logout</a>
+                    </li>
+                </ul>
+            </div>
             </ul>
         </nav>
         <main>

@@ -41,7 +41,7 @@ a {
 li {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     
     text-align: left;
     color: white;
@@ -54,28 +54,14 @@ li.profile {
 
 li i, li img {
     font-size: 1.5em;
-    width: 0.5em;
-    height: 0.5em;
+    width: 1em;
+    height: 1em;
     flex-shrink: 0;
  
 }
-li img {
-    width: 1em;
-    height: 1em;
- 
-}
-.button {
+.button, .button-profile {
     border: none;
     margin-left: 1.5em;
-    text-align: left;
-    letter-spacing: 0.72px;
-    color: #FFFFFF;
-    padding: 0.2rem;
-    width: 60%;
-}
-.button-profile {
-    border: none;
-    margin-left: 1em;
     text-align: left;
     letter-spacing: 0.72px;
     color: #FFFFFF;

@@ -12,11 +12,10 @@
         </div>
         <div class="sign-up-container">
             <form class="sign-up">
+                <input class="username" name="username" type="text" placeholder="Username">
                 <input class="email" name="email" type="text" value="<?PHP echo reset($email);?>" placeholder="E-mail">
                 <input class="password" name="password" type="password" placeholder="Password">
                 <input class="repeat-password" name="repeat-password" type="password" placeholder="Repeat password">
-                <input class="name" name="name" type="text" placeholder="Name">
-                <input class="surrname" name="surrname" type="text" placeholder="Surrname">
                 <button class="sign-up" type="submit">Sign up</button>
             </form>
             <p>Already have an account? <a href="login" class="has-account">Sign in</a></p>

@@ -20,6 +20,8 @@ class ConcertController extends AppController {const MAX_FILE_SIZE = 1024*1024;
             // TODO create new concert object and save it in database
             $concert = new Concert($_POST['artist'], $_POST['date'], $_POST['title'], $_POST['venue'], $_POST['location'], $_FILES['images']['name']);
 
+            
+
             return $this->render('feed', ['messages' => $this->message]);
         }
         return $this->render('add-project', ['messages' => $this->message]);
