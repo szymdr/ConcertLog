@@ -35,7 +35,7 @@ const data = {
 };
 
 const config = {
-    type: 'line',
+    type: 'bar',
     data: data,
     options: {
         responsive: true,
@@ -50,6 +50,15 @@ const config = {
                     }
                 }
             }
+        },
+        scales: {
+          y: {
+            ticks: {
+              stepSize: 1,          
+              suggestedMin: '0',      
+              suggestedMax: 'max-int-value'       
+            }
+          }
         }
     }
 };

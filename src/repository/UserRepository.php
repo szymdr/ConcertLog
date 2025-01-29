@@ -20,24 +20,38 @@ class UserRepository extends Repository
             return null;
         }
 
-        return new User(
+        $stmtProfilePicture = $this->database->connect()->prepare('
+            SELECT profile_picture FROM user_details WHERE user_details_id = :user_details_id
+        ');
+        $stmtProfilePicture->bindParam(':user_details_id', $user['user_details_id'], PDO::PARAM_INT);
+        $stmtProfilePicture->execute();
+        $profile_picture = $stmtProfilePicture->fetch(PDO::FETCH_ASSOC);
+
+
+        $return_user =  new User(
             $user['username'],  
             $user['email'],
             $user['password_hash']
         );
+        $return_user->setProfilePicture($profile_picture['profile_picture']);
+        return $return_user;
     }
 
     public function addUser(User $user)
     {
+        $defaultProfilePicture = 'default_profile_picture.png';
+
         $stmt = $this->database->connect()->prepare('
-            INSERT INTO users_details (profile_picture, bio)
-            VALUES (?, ?)
+            INSERT INTO user_details (profile_picture, bio)
+            VALUES (?, ?) RETURNING user_details_id
         ');
 
         $stmt->execute([
-            null,
+            $defaultProfilePicture,
             null
         ]);
+
+        $userDetailsId = $stmt->fetchColumn();
 
         $stmt = $this->database->connect()->prepare('
             INSERT INTO users (username, email, password_hash, user_details_id) 
@@ -48,21 +62,33 @@ class UserRepository extends Repository
             $user->getUsername(),
             $user->getEmail(),
             $user->getPassword(),
-            $this->getUserDetailsId($user)
+            $userDetailsId
         ]);
     }
 
-    public function getUserDetailsId(User $user): int
+    public function setProfilePicture(string $email, string $profilePicture)
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM public.users_details WHERE name = :name AND surname = :surname AND phone = :phone
+            UPDATE user_details SET profile_picture = :profile_picture
+            WHERE user_details_id = (SELECT user_details_id FROM users WHERE email = :email)
         ');
-        $stmt->bindParam(':name', $user->getName(), PDO::PARAM_STR);
-        $stmt->bindParam(':surname', $user->getSurname(), PDO::PARAM_STR);
-        $stmt->bindParam(':phone', $user->getPhone(), PDO::PARAM_STR);
-        $stmt->execute();
 
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $data['id'];
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':profile_picture', $profilePicture, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function saveProfileChanges(User $user) {
+        ;
+    }
+
+    public function removeUser(User $user)
+    {
+        $stmt = $this->database->connect()->prepare('
+            DELETE FROM users WHERE email = :email
+        ');
+        $email = $user->getEmail();
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
     }
 }

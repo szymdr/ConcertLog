@@ -2,6 +2,7 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../repository/ConcertRepository.php';
+require_once __DIR__.'/../repository/StatisticsRepository.php';
 
 class DefaultController extends AppController {
 
@@ -29,7 +30,12 @@ class DefaultController extends AppController {
     }
     public function profile()
     {
-        $this->render('profile');
+        $userRepository = new UserRepository();
+        $user = $userRepository->getUser('admin@admin.com');
+
+        $statisticsRepository = new StatisticsRepository();
+        $statistics = $statisticsRepository->getStatistics();
+        $this->render('profile', ['statistics'=> $statistics, 'user' => $user]);
     }
     public function settings()
     {

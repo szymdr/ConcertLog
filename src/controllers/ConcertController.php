@@ -4,7 +4,8 @@ require_once 'AppController.php';
 require_once __DIR__.'/../models/Concert.php';
 require_once __DIR__.'/../repository/ConcertRepository.php';
 
-class ConcertController extends AppController {const MAX_FILE_SIZE = 1024*1024;
+class ConcertController extends AppController {
+    const MAX_FILE_SIZE = 1024*1024;
     const SUPPORTED_TYPES = ['image/png', 'image/jpeg'];
     const UPLOAD_DIRECTORY = '/../public/uploads/';
 
@@ -17,33 +18,68 @@ class ConcertController extends AppController {const MAX_FILE_SIZE = 1024*1024;
     }
 
     public function createConcert()
-    {   
-        if ($this->isPost() && is_uploaded_file($_FILES['images']['tmp_name']) && $this->validate($_FILES['images'])) {
-            move_uploaded_file(
-                $_FILES['images']['tmp_name'], 
-                dirname(__DIR__).self::UPLOAD_DIRECTORY.$_FILES['images']['name']
-            );
-
-            $concert = new Concert($_POST['artist'], $_POST['date'], $_POST['title'], $_POST['venue'], $_POST['location'], $_FILES['images']['name']);
-
-            $this->concertRepository->addConcert($concert);
-
-            return $this->render('feed', ['messages' => $this->message, 'concerts' => $this->concertRepository->getConcerts()]);
-        }
-        return $this->render('add-project', ['messages' => $this->message]);
-    }
-
-    private function validate(array $file): bool
     {
-        if ($file['size'] > self::MAX_FILE_SIZE) {
-            $this->message[] = 'File is too large for destination file system.';
-            return false;
+        if ($this->isPost() && isset($_FILES['images']) && $this->validateFiles($_FILES['images'])) {
+            $uploadedFiles = $_FILES['images'];
+            $imagePaths = [];
+    
+            for ($i = 0; $i < count($uploadedFiles['name']); $i++) {
+                if($uploadedFiles['size'][$i] == 0){
+                    break;
+                }
+                if (is_uploaded_file($uploadedFiles['tmp_name'][$i])) {
+                    $filename = uniqid('ConcertPhoto', true) . '.' . pathinfo($uploadedFiles['name'][$i], PATHINFO_EXTENSION);
+                    $destination = dirname(__DIR__) . self::UPLOAD_DIRECTORY . $filename;
+                    if (move_uploaded_file($uploadedFiles['tmp_name'][$i], $destination)) {
+                        $imagePaths[] = $filename;
+                    } else {
+                        $this->message[] = 'Failed to move uploaded file.';
+                    }
+                } else {
+                    $this->message[] = 'File not found: ' . $uploadedFiles['tmp_name'][$i];
+                }
+            }
+    
+            if (empty($this->message)) {
+                $concert = new Concert(
+                    $_POST['artist'],
+                    $_POST['date'],
+                    $_POST['title'],
+                    $_POST['genre'],
+                    $_POST['venue'],
+                    $_POST['location'],
+                    $imagePaths
+                );
+    
+                $this->concertRepository->addConcert($concert);
+                
+                header("Location: /feed");
+                exit();
+            }
         }
-
-        if (!isset($file['type']) || !in_array($file['type'], self::SUPPORTED_TYPES)) {
-            $this->message[] = 'File type is not supported.';
-            return false;
+        return $this->render('addconcert', ['messages' => $this->message]);
+    }
+    
+    private function validateFiles(array $files): bool
+    {
+        if ($files['size'][0] == 0){
+            return true;
         }
+        foreach ($files['size'] as $size) {
+            if ($size > self::MAX_FILE_SIZE) {
+                $this->message[] = 'One or more files are too large for destination file system.';
+                return false;
+            }
+        }
+    
+        foreach ($files['type'] as $type) {
+            if (!in_array($type, self::SUPPORTED_TYPES)) {
+                $this->message[] = 'One or more file types are not supported.';
+                return false;
+            }
+        }
+    
         return true;
     }
+    
 }

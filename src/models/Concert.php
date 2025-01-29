@@ -5,6 +5,7 @@ class Concert
     private $artist;
     private $date;
     private $title;
+    private $genre;
     private $venue;
     private $location;
     private $images;
@@ -13,6 +14,7 @@ class Concert
         string $artist,
         string $date,
         string $title,
+        string $genre,
         string $venue,
         string $location,
         array $images
@@ -20,6 +22,7 @@ class Concert
         $this->artist = $artist;
         $this->date = $date;
         $this->title = $title;
+        $this->genre = $genre;
         $this->venue = $venue;
         $this->location = $location;
         $this->images = $images;
@@ -47,6 +50,14 @@ class Concert
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+    public function getGenre(): string
+    {
+        return $this->genre;
+    }
+    public function setGenre(string $genre): void
+    {
+        $this->genre = $genre;
     }
     public function getVenue(): string
     {

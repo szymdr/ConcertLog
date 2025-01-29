@@ -2,7 +2,14 @@ main {
     font-family: Arial, sans-serif;
 }
 
+section {
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;    
+}
+
 h1 {
+    margin: auto;
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;

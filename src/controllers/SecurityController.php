@@ -26,13 +26,13 @@ class SecurityController extends AppController {
         if (isset($_POST['sign-in'])) {
     
             $user = $this->userRepository->getUser($email);
-            // $user = new User('admin', 'admin', 'John', 'Doe');
+            // $user = new User('admin', 'admin@admin.com', 'admin');
 
             if (!$user) {
                 return $this->render('login', ['messages' => ['User not found!'], 'email' => [$email]]);
             }
 
-            $password = $_POST['password'];
+            $password = md5($_POST['password']);
     
             if ($user->getEmail() !== $email) {
                 return $this->render('login', ['messages' => ['User with this email does not exist!'], 'email' => [$email]]);
@@ -50,7 +50,25 @@ class SecurityController extends AppController {
     }   
     public function signup()
     {
-        $this->render('signup', ['email' => ['']]);
+        if (!$this->isPost()) {
+            return $this->render('signup', ['email' => ['']]);
+        }
+
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $confirmedPassword = $_POST['repeat-password'];
+
+        if ($password !== $confirmedPassword) {
+            return $this->render('register', ['messages' => ['Please provide proper password'], 'email' => [$email]]);
+        }
+
+        //TODO try to use better hash function
+        $user = new User($username, $email, md5($password));
+
+        $this->userRepository->addUser($user);
+
+        return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!'], 'email'=> ['']]);
     }
     public function logout()
     {

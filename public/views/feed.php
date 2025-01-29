@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/posts.css">
     <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
     <script src="https://kit.fontawesome.com/7ae6ad35c3.js" crossorigin="anonymous"></script>
+    <script src="public/js/photo-carousel.js" defer></script>
     <title>ConcertLog • Main Page</title>
 </head>
 <body>
@@ -51,15 +52,17 @@
             <section class="feed">
                 <?php foreach ($concerts as $concert): ?>
                 <div class="post">
-                    <div class="carousel">
-                        <div class="carousel-track">
-                            <?php foreach ($concert->getImages() as $image): ?>
-                            <img src="public/uploads/<?= htmlspecialchars($image); ?>" alt="Concert image">
-                            <?php endforeach; ?>
-                        </div>
+                <div class="carousel">
+                    <div class="carousel-track">
+                        <?php foreach ($concert->getImages() as $image): ?>
+                            <img src="public/uploads/<?= $image; ?>" alt="Concert image">
+                        <?php endforeach; ?>
+                    </div>
+                    <?php if (count($concert->getImages()) > 1): ?>
                         <button class="carousel-button prev">&lt;</button>
                         <button class="carousel-button next">&gt;</button>
-                    </div>
+                    <?php endif; ?>
+                </div>
                     <div class="details">
                         <h2><?= htmlspecialchars($concert->getTitle()); ?></h2>
                         <p><strong>Artist:</strong> <?= htmlspecialchars($concert->getArtist()); ?></p>
@@ -76,38 +79,3 @@
     
 </body>
 </html>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const carousels = document.querySelectorAll(".carousel");
-
-        carousels.forEach(carousel => {
-            const track = carousel.querySelector(".carousel-track");
-            const nextButton = carousel.querySelector(".carousel-button.next");
-            const prevButton = carousel.querySelector(".carousel-button.prev");
-            const images = Array.from(track.children);
-            const imageWidth = images[0].getBoundingClientRect().width;
-
-            let currentIndex = 0;
-
-            const updateCarousel = () => {
-                track.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
-            };
-
-            nextButton.addEventListener("click", () => {
-                if (currentIndex < images.length - 1) {
-                    currentIndex++;
-                    updateCarousel();
-                }
-            });
-
-            prevButton.addEventListener("click", () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    updateCarousel();
-                }
-            });
-        });
-    });
-</script>
-

@@ -64,6 +64,7 @@ section {
     align-items: center;
     justify-content: center;
     z-index: 1;
+    visibility: visible;
 }
 
 .carousel-button.prev {
@@ -74,6 +75,9 @@ section {
     right: 0.5em;
 }
 
+.carousel-button.hidden {
+    visibility: hidden;
+}
 .carousel-button:focus {
     outline: none;
 }

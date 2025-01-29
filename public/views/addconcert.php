@@ -61,15 +61,19 @@
                     ?>
                     <div class="form-group">
                         <label for="artist">Artist</label>
-                        <input type="text" id="artist" name="artist" placeholder="Artist name" >
+                        <input type="text" id="artist" name="artist" placeholder="Artist name" required>
                     </div>
                     <div class="form-group">
                         <label for="date">Date</label>
-                        <input type="date" id="date" name="date" >
+                        <input type="date" id="date" name="date" required>
                     </div>
                     <div class="form-group">
                         <label for="title">Concert or Tour Title</label>
                         <input type="text" id="title" name="title" placeholder="Concert or tour title">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Genre</label>
+                        <input type="text" id="genre" name="genre" placeholder="Genre">
                     </div>
                     <div class="form-group">
                         <label for="venue">Venue</label>
@@ -80,8 +84,8 @@
                         <input type="text" id="location" name="location" placeholder="City, Country" >
                     </div>
                     <div class="form-group">
-                        <label for="images">Add Photos</label>
-                        <input type="file" id="images" name="images" accept="image/*" multiple>
+                        <label for="images">Add Photos (.png or .jpeg)</label>
+                        <input type="file" id="images" name="images[]" accept="image/*" multiple>
                     </div>
                     <button type="submit" class="submit-button">Add Concert</button>
                 </form>
