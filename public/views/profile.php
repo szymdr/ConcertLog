@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/edit_profile_popup.css">
     <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
     <script src="https://kit.fontawesome.com/7ae6ad35c3.js" crossorigin="anonymous"></script>
+    <script src="public/js/popup.js"></script>
     <title>ConcertLog • Profile</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
                 </li>
                 <li class="navigation-profile">
                     
-                    <img src = "public/uploads/<?=$user->getProfilePicture()?>"></img>
+                    <img src = "public/uploads/<?=$_SESSION['profile_picture']?>"></img>
                     <a href="profile" class="button-profile">Profile</a>
                 </li>
             </ul>
@@ -55,8 +56,8 @@
             <div class="profile-container">
                 <section class="profile">
                     <div class="profile-header">
-                        <img src="public/uploads/<?=$user->getProfilePicture()?>" alt="Profile Picture" class="profile-picture">
-                        <h1 class="profile-name">szymon_dral</h1>
+                        <img src="public/uploads/<?=$_SESSION['profile_picture']?>" alt="Profile Picture" class="profile-picture">
+                        <h1 class="profile-name"><?=$_SESSION['username']?></h1>
                         <button class="edit-profile-button" onclick="openPopup()">Edit Profile</button>
                     </div>
                     <div class="profile-stats">
@@ -108,6 +109,23 @@
                         </ul>
                     </div>
                 </section>
+                <section class="concerts-container">
+                    <h2>Your Concerts</h2>
+                    <div class="concerts-grid">
+                        <?php foreach ($concerts as $concert): ?>
+                            <div class="concert-item">
+                                <h3><?= htmlspecialchars($concert->getTitle()); ?></h3>
+                                <p><strong>Artist:</strong> <?= htmlspecialchars($concert->getArtist()); ?></p>
+                                <p><strong>Date:</strong> <?= htmlspecialchars($concert->getDate()); ?></p>
+                                <p><strong>Venue:</strong> <?= htmlspecialchars($concert->getVenue()); ?></p>
+                                <p><strong>Location:</strong> <?= htmlspecialchars($concert->getLocation()); ?></p>
+                                <button class="edit-concert-button" onclick="openEditConcertPopup()">Edit</button>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </section>
+
+
 
             </div>
             
@@ -134,15 +152,34 @@
         </div>
     </div>
 </body>
+
+<div id="edit-concert-popup" class="popup">
+    <div class="popup-content">
+        <span class="close-button" onclick="closeEditConcertPopup()">&times;</span>
+        <h1>Edit Concert</h1>
+        <form class="popup-form" action="saveConcertChanges" method="POST">
+            <input type="hidden" id="concert-id" name="concert-id">
+            <div class="form-group">
+                <label for="concert-title">Title</label>
+                <input type="text" id="concert-title" name="concert-title">
+            </div>
+            <div class="form-group">
+                <label for="concert-artist">Artist</label>
+                <input type="text" id="concert-artist" name="concert-artist">
+            </div>
+            <div class="form-group">
+                <label for="concert-date">Date</label>
+                <input type="date" id="concert-date" name="concert-date">
+            </div>
+            <button type="submit" class="save-button">Save Changes</button>
+        </form>
+    </div>
+</div>
 </html>
 
-<?php
-// Przykładowe dane z bazy danych
-$concertsPerYear = $statistics->getConcertsPerYear();
-?>
 
-
+<?php $concertsPerYear = $statistics->getConcertsPerYear(); ?>
 <script>
-    const concertsPerYear = <?php echo json_encode($concertsPerYear); ?>;
+  const concertsPerYear = <?= json_encode($concertsPerYear) ?>;
 </script>
 <script src="public/js/chart.js"></script>

@@ -25,7 +25,7 @@
                     <a href="addconcert" class="button">Add concert</a>
                 </li>
                 <li class="profile">
-                    <img src = "public/img/profile_picture.png"></img>
+                    <img src = "public/uploads/<?=$_SESSION['profile_picture']?>"></img>
                     <a href="profile" class="button-profile">Profile</a>
                 </li>
             </ul>

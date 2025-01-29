@@ -5,8 +5,22 @@ class AppController {
 
     public function __construct()
     {
+        session_start();
+        
+        // Allow these actions without a session
+        $allowedRoutes = ['login', 'signup', 'changepassword'];
+        
+        $currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $currentRoute = trim($currentRoute, '/'); 
+        
+        if (!isset($_SESSION['user_id']) && !in_array($currentRoute, $allowedRoutes)) {
+            header('Location: /login');
+            exit();
+        }
+    
         $this->request = $_SERVER['REQUEST_METHOD'];
     }
+
 
     protected function isGet(): bool
     {

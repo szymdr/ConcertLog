@@ -39,11 +39,21 @@ class SecurityController extends AppController {
             }
     
             if ($user->getPassword() !== $password) {
-                return $this->render('login', ['messages' => ['Wrong password!'], 'email' => [$email]]);
+                return $this->render('login', [
+                    'messages' => ['Incorrect password. Try again.'],
+                    'email' => [$email]
+                ]);
+            } else {
+
+                session_start();
+                $_SESSION['user_id'] = $this->userRepository->getUserID($email);
+                $_SESSION['email'] = $email;
+                $_SESSION['username'] = $user->getUsername();
+                $_SESSION['profile_picture'] = $user->getProfilePicture();
+                $url = "http://$_SERVER[HTTP_HOST]";
+                header("Location: {$url}/feed");
+                exit();
             }
-    
-            $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: {$url}/feed");
           } else {
             return $this->render('signup', ['email' => [$email]]);
           }
@@ -72,6 +82,10 @@ class SecurityController extends AppController {
     }
     public function logout()
     {
-        $this->render('login', ['email' => ['']]);
+        session_unset();
+        session_destroy();
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/login");
+        exit();
     }
 }

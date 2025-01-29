@@ -99,13 +99,23 @@ class ConcertRepository extends Repository
             INSERT INTO concert_picture (concert_id, picture_path)
             VALUES (?, ?)
         ');
-    
+
         foreach ($concert->getImages() as $image) {
             $stmtConcertImage->execute([
                 $concertId,
                 $image
             ]);
         }
+
+        $stmConcertUser = $this->database->connect()->prepare('
+        INSERT INTO concert_user (concert_id, user_id)
+        VALUES (?, ?)
+        ');
+        $stmConcertUser->execute([
+            $concertId,
+            $_SESSION['user_id']
+        ]);
+        
     }
 
     public function getConcerts(): array
@@ -113,7 +123,7 @@ class ConcertRepository extends Repository
         $result = [];
     
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM concerts;
+            SELECT * FROM concerts ORDER BY created_at DESC;
         ');
         $stmt->execute();
         $concerts = $stmt->fetchAll(PDO::FETCH_ASSOC);

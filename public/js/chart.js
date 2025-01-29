@@ -1,5 +1,5 @@
 const labels = Object.keys(concertsPerYear);
-const dataValues = Object.values(concertsPerYear);
+const dataValues = Object.values(concertsPerYears);
 
 const data = {
     labels: labels,

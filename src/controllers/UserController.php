@@ -20,11 +20,11 @@ class UserController extends AppController {
 
     public function saveProfileChanges() {
         if (!$this->isPost()) {
-            return $this->render('profile', ['statistics'=> $statisticsRepository->getStatistics(), 'user' => $userRepository->getUser('admin@admin.com');
+            return $this->render('profile', ['statistics'=> $statisticsRepository->getStatistics()]);
         }
 
-        $profilePicture = $_POST['profile-picture'];
-        
+        $_POST['profile-picture'] = $_POST['profile-picture'] ?? 'default_profile_picture.png';
+
     }
     
 }

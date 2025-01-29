@@ -31,11 +31,15 @@ class DefaultController extends AppController {
     public function profile()
     {
         $userRepository = new UserRepository();
-        $user = $userRepository->getUser('admin@admin.com');
+        $user = $userRepository->getUser($_SESSION['user_id']);
 
         $statisticsRepository = new StatisticsRepository();
         $statistics = $statisticsRepository->getStatistics();
-        $this->render('profile', ['statistics'=> $statistics, 'user' => $user]);
+
+        $concertRepository = new ConcertRepository();
+        $concerts = $concertRepository->getConcerts();
+
+        $this->render('profile', ['statistics'=> $statistics, 'user' => $user, 'concerts' => $concerts]);
     }
     public function settings()
     {
