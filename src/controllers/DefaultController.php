@@ -34,10 +34,10 @@ class DefaultController extends AppController {
         $user = $userRepository->getUser($_SESSION['user_id']);
 
         $statisticsRepository = new StatisticsRepository();
-        $statistics = $statisticsRepository->getStatistics();
+        $statistics = $statisticsRepository->getUserStatistics($_SESSION['user_id']);
 
         $concertRepository = new ConcertRepository();
-        $concerts = $concertRepository->getConcerts();
+        $concerts = $concertRepository->getUserConcerts($_SESSION['user_id']);
 
         $this->render('profile', ['statistics'=> $statistics, 'user' => $user, 'concerts' => $concerts]);
     }

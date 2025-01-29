@@ -204,4 +204,96 @@ class ConcertRepository extends Repository
         return $result;
     }
 
+    public function getUserConcerts(int $user_id): array
+    {
+        $result = [];
+
+        $stmt = $this->database->connect()->prepare('
+            SELECT c.*
+            FROM concerts c
+            INNER JOIN concert_user cu ON c.concert_id = cu.concert_id
+            WHERE cu.user_id = :user_id
+            ORDER BY c.created_at DESC
+        ');
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $concerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        foreach ($concerts as $concert) {
+            $stmtConcertArtist = $this->database->connect()->prepare('
+                SELECT artist_id FROM concert_artist WHERE concert_id = :concert_id
+            ');
+            $stmtConcertArtist->bindParam(':concert_id', $concert['concert_id'], PDO::PARAM_INT);
+            $stmtConcertArtist->execute();
+            $artistId = $stmtConcertArtist->fetchColumn();
+    
+            $stmtArtist = $this->database->connect()->prepare('
+                SELECT name FROM artists WHERE artist_id = :artist_id
+            ');
+            $stmtArtist->bindParam(':artist_id', $artistId, PDO::PARAM_INT);
+            $stmtArtist->execute();
+            $artist = $stmtArtist->fetchColumn();
+    
+            if (!$artist) {
+                $artist = 'Unknown Artist';
+            }
+
+            $stmtGenre = $this->database->connect()->prepare('
+                SELECT name FROM concert_genre WHERE genre_id = :genre_id
+            ');
+            $stmtGenre->bindParam(':genre_id', $concert['genre_id'], PDO::PARAM_STR);
+            $stmtGenre->execute();
+            $genre = $stmtGenre->fetchColumn();
+
+            if (!$genre) {
+                $genre = 'Unknown Genre';
+            }
+
+            $stmtVenue = $this->database->connect()->prepare('
+                SELECT name FROM venues WHERE venue_id = :venue_id
+            ');
+            $stmtVenue->bindParam(':venue_id', $concert['venue_id'], PDO::PARAM_INT);
+            $stmtVenue->execute();
+
+            $venue = $stmtVenue->fetchColumn();
+            if (!$venue) {
+                $venue = 'Unknown Venue';
+            }
+
+            $stmtLocation = $this->database->connect()->prepare('
+                SELECT name FROM locations WHERE location_id = :location_id
+            ');
+            $stmtLocation->bindParam(':location_id', $concert['location_id'], PDO::PARAM_INT);
+            $stmtLocation->execute();
+            $location = $stmtLocation->fetchColumn();
+            if (!$location) {
+                $location = 'Unknown Location';
+            }
+
+            $stmtImages = $this->database->connect()->prepare('
+                SELECT picture_path FROM concert_picture WHERE concert_id = :concert_id
+            ');
+            $stmtImages->bindParam(':concert_id', $concert['concert_id'], PDO::PARAM_INT);
+            $stmtImages->execute();
+            $images = $stmtImages->fetchAll(PDO::FETCH_COLUMN);
+
+            if (empty($images)) {
+                $images = ['default_concert.jpg'];
+            }
+    
+            $result[] = new Concert(
+                $artist,
+                $concert['date'],
+                $concert['title'],
+                $genre,
+                $venue,
+                $location,
+                $images
+            );
+        }
+    
+        return $result;
+    }
+
 }

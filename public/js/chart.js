@@ -1,5 +1,5 @@
 const labels = Object.keys(concertsPerYear);
-const dataValues = Object.values(concertsPerYears);
+const dataValues = Object.values(concertsPerYear);
 
 const data = {
     labels: labels,
@@ -35,7 +35,7 @@ const data = {
 };
 
 const config = {
-    type: 'bar',
+    type: 'line',
     data: data,
     options: {
         responsive: true,
