@@ -9,7 +9,7 @@ require_once __DIR__.'/../repository/ConcertRepository.php';
 class UserController extends AppController {
     const MAX_FILE_SIZE = 1024*1024;
     const SUPPORTED_TYPES = ['image/png', 'image/jpeg'];
-    const UPLOAD_DIRECTORY = '/../public/uploads/';
+    const UPLOAD_DIRECTORY = '/../public/uploads/profilePictures/';
 
     private $message = [];
     private $userRepository;

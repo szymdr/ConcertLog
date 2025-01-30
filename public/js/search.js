@@ -52,7 +52,7 @@ function createConcert(concert) {
 
     concert.images.forEach(img => {
         const newImg = document.createElement("img");
-        newImg.src = `public/uploads/${img}`;
+        newImg.src = `public/uploads/concertPhotos/${img}`;
         newImg.alt = "Concert image";
         carouselTrack.appendChild(newImg);
     });
@@ -85,10 +85,8 @@ function createConcert(concert) {
     if (locationElement) locationElement.innerHTML = `<strong>Location:</strong> ${concert.location}`;
     if (addedByElement) addedByElement.innerHTML = `<strong>Added by:</strong> ${concert.addedBy}`;
 
-    // Append the finished post to your feed container
     feedContainer.appendChild(clone);
     console.log('Appended clone:', clone);  
 
-    // Initialize carousel for the newly added concert
     initializeCarousel(carousel);
 }

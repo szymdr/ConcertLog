@@ -17,15 +17,11 @@
                     <a href="feed" class="button">Feed</a>
                 </li>
                 <li>
-                    <i class="fa-solid fa-user-group"></i>
-                    <a href="friends" class="button">Friends</a>
-                </li>
-                <li>
                     <i class="fa-solid fa-plus"></i>
                     <a href="addconcert" class="button">Add concert</a>
                 </li>
                 <li class="profile">
-                    <img src = "public/uploads/<?=$_SESSION['profile_picture']?>"></img>
+                    <img src = "public/uploads/profilePictures/<?=$_SESSION['profile_picture']?>"></img>
                     <a href="profile" class="button-profile">Profile</a>
                 </li>
             </ul>

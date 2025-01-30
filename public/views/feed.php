@@ -19,15 +19,11 @@
                     <a href="feed" class="button">Feed</a>
                 </li>
                 <li>
-                    <i class="fa-solid fa-user-group"></i>
-                    <a href="friends" class="button">Friends</a>
-                </li>
-                <li>
                     <i class="fa-solid fa-plus"></i>
                     <a href="addconcert" class="button">Add concert</a>
                 </li>
                 <li class="profile">
-                    <img src = "public/uploads/<?=$_SESSION['profile_picture']?>"></img>
+                    <img src = "public/uploads/profilePictures/<?=$_SESSION['profile_picture']?>"></img>
                     <a href="profile" class="button-profile">Profile</a>
                 </li>
             </ul>
@@ -54,7 +50,7 @@
                 <div class="carousel">
                     <div class="carousel-track">
                         <?php foreach ($concert->getImages() as $image): ?>
-                            <img src="public/uploads/<?= $image; ?>" alt="Concert image">
+                            <img src="public/uploads/concertPhotos/<?= $image; ?>" alt="Concert image">
                         <?php endforeach; ?>
                     </div>
                     <?php if (count($concert->getImages()) > 1): ?>

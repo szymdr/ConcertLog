@@ -22,16 +22,12 @@
                     <a href="feed" class="button">Feed</a>
                 </li>
                 <li>
-                    <i class="fa-solid fa-user-group"></i>
-                    <a href="friends" class="button">Friends</a>
-                </li>
-                <li>
                     <i class="fa-solid fa-plus"></i>
                     <a href="addconcert" class="button">Add concert</a>
                 </li>
                 <li class="navigation-profile">
                     
-                    <img src = "public/uploads/<?=$_SESSION['profile_picture']?>"></img>
+                    <img src = "public/uploads/profilePictures/<?=$_SESSION['profile_picture']?>"></img>
                     <a href="profile" class="button-profile">Profile</a>
                 </li>
             </ul>
@@ -49,7 +45,7 @@
             <div class="profile-container">
                 <section class="profile">
                     <div class="profile-header">
-                        <img src="public/uploads/<?=$_SESSION['profile_picture']?>" alt="Profile Picture" class="profile-picture">
+                        <img src="public/uploads/profilePictures/<?=$_SESSION['profile_picture']?>" alt="Profile Picture" class="profile-picture">
                         <h1 class="profile-name"><?=$_SESSION['username']?></h1>
                         <button class="edit-profile-button" onclick="openPopup()"><i class="fa-solid fa-gear"></i></button>
                     </div>
