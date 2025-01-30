@@ -12,38 +12,38 @@ main {
 }
 
 .profile {
-    max-width: 800px;
+    max-width: 50em;
     margin: 0 auto;
     background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 0.0625em solid #ddd;
+    border-radius: 0.5em;
     padding: 1em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
 }
 
 .profile-header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25em;
 }
 
 .profile-picture {
-    width: 100px;
-    height: 100px;
+    width: 6.25em;
+    height: 6.25em;
     border-radius: 50%;
-    margin-right: 20px;
-    border: 2px solid #ddd;
+    margin-right: 1.25em;
+    border: 0.125em solid #ddd;
 }
 
 .profile-name {
-    font-size: 24px;
+    font-size: 1.5em;
     color: #333;
 }
 
 .profile-stats {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 1.25em;
 }
 
 .profile-header {
@@ -54,7 +54,7 @@ main {
 }
 
 .profile-name {
-    font-size: 24px;
+    font-size: 1.5em;
     color: #333;
     margin-right: auto;
 }
@@ -63,9 +63,9 @@ main {
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125em;
     padding: 0.75em;
-    font-size: 14px;
+    font-size: 0.875em;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -74,14 +74,13 @@ main {
     background-color: #0056b3;
 }
 
-
 .stat {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 0.0625em solid #ddd;
+    border-radius: 0.5em;
     padding: 1em;
     text-align: center;
     flex: 1;    
@@ -89,55 +88,53 @@ main {
 }
 
 .stat h2 {
-    font-size: 18px;
+    font-size: 1.125em;
     color: #555;
-    margin-bottom: 10px;
+    margin-bottom: 0.625em;
 }
 
 .stat p {
-    font-size: 16px;
+    font-size: 1em;
     color: #007bff;
     font-weight: bold;
 }
 
-/* Stylizacja sekcji grid */
 .stats-grid {
-    max-width: 800px;
+    max-width: 50em;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 1em;
     background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 0.0625em solid #ddd;
+    border-radius: 0.5em;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
     margin: 1em auto;
 }
 
-/* Stylizacja pojedynczego boxa */
 .stats-box, .stats-box-years {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 0.0625em solid #ddd;
+    border-radius: 0.5em;
     padding: 1em;
     margin: 0.5em;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
 }
 
 .stats-box h2, .stats-box-years h2 {
-    font-size: 18px;
+    font-size: 1.125em;
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375em;
 }
 
 .stats-box p, .stats-box-years p {
-    font-size: 24px;
+    font-size: 1.5em;
     font-weight: bold;
     color: #007bff;
-    margin: 10px 0;
+    margin: 0.625em 0;
 }
 
 .stats-box ul, .stats-box-years ul {
@@ -153,9 +150,9 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
+    font-size: 0.875em;
     color: #555;
-    margin-bottom: 5px;
+    margin-bottom: 0.3125em;
     padding-left: 2em;
     position: relative;
     counter-increment: list-counter;
@@ -179,23 +176,23 @@ main {
 .stats-box ul li span, .stats-box-years ul li span {
     font-weight: bold;
     color: #007bff;
-    margin-left: 10px;
+    margin-left: 0.625em;
 }
 
 .stats-box-years canvas {
     max-width: 100%;
-    height: 300px;
+    height: 18.75em;
     margin: 0 auto;
 }
 
 .concerts-container {
-    max-width: 800px;
+    max-width: 50em;
     margin: 2em auto;
     background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 0.0625em solid #ddd;
+    border-radius: 0.5em;
     padding: 1em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
 }
 
 .concerts-container h2 {
@@ -205,19 +202,19 @@ main {
 
 .concerts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15.625em, 1fr));
     gap: 1em;
     padding: 1em;
 }
 
 .concert-item {
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 0.0625em solid #ddd;
+    border-radius: 0.5em;
     padding: 1em;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    transition: transform 0.0125s ease-in-out;
 }
 
 .concert-item:hover {
@@ -225,24 +222,24 @@ main {
 }
 
 .concert-item h3 {
-    font-size: 18px;
+    font-size: 1.125em;
     color: #333;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.3125em;
 }
 
 .concert-item p {
-    font-size: 14px;
+    font-size: 0.875em;
     color: #555;
-    margin: 0.3em 0;
+    margin: 0.01875em 0;
 }
 
 .edit-concert-button {
     background-color: #555;
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 0.5em;
-    font-size: 14px;
+    border-radius: 0.3125em;
+    padding: 0.3125em;
+    font-size: 0.875em;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -273,6 +270,6 @@ main {
 
 /* Stylowanie elementu wyświetlającego nazwę pliku */
 .file-name {
-    font-size: 14px;
+    font-size: 0.875em;
     color: #555;
 }

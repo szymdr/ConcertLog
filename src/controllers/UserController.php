@@ -36,7 +36,7 @@ class UserController extends AppController {
             is_uploaded_file($_FILES['profile-picture']['tmp_name']) &&
             $this->validate($_FILES['profile-picture']))
             {
-                $fileName = basename($_FILES['profile-picture']['name']);
+                $fileName = uniqid('', true) . '.' . pathinfo($_FILES['profile-picture']['name'], PATHINFO_EXTENSION);
                 move_uploaded_file(
                     $_FILES['profile-picture']['tmp_name'],
                     dirname(__DIR__) . self::UPLOAD_DIRECTORY . $fileName

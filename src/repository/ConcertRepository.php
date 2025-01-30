@@ -134,7 +134,7 @@ class ConcertRepository extends Repository
             $result = [];
 
             $stmt = $pdo->prepare('
-                SELECT * FROM concerts ORDER BY created_at DESC;
+                SELECT * FROM concerts ORDER BY date DESC;
             ');
             $stmt->execute();
             $concerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -318,7 +318,7 @@ class ConcertRepository extends Repository
         }
     }
 
-    public function getConcertByTitle(string $searchString): array
+    public function getConcertByTitleOrArtist(string $searchString): array
     {
         $pdo = $this->database->connect(); // Single PDO instance
         $pdo->beginTransaction();
@@ -327,11 +327,14 @@ class ConcertRepository extends Repository
             $searchString = '%' . strtolower($searchString) . '%';
 
             $stmt = $pdo->prepare('
-                SELECT c.*, u.username
+                SELECT *
                 FROM concerts c
-                LEFT JOIN concert_user cu ON c.concert_id = cu.concert_id
-                LEFT JOIN users u ON cu.user_id = u.user_id
-                WHERE LOWER(c.title) LIKE :search
+                LEFT JOIN venues v ON c.venue_id = v.venue_id
+                LEFT JOIN locations l ON c.location_id = l.location_id
+                LEFT JOIN concert_genre g ON c.genre_id = g.genre_id
+                LEFT JOIN concert_artist ca ON c.concert_id = ca.concert_id
+                LEFT JOIN artists a ON ca.artist_id = a.artist_id
+                WHERE LOWER(c.title) ILIKE :search  OR LOWER(a.name) ILIKE :search;
             ');
             $stmt->bindParam(':search', $searchString, PDO::PARAM_STR);
             $stmt->execute();
@@ -387,14 +390,27 @@ class ConcertRepository extends Repository
                 $stmtLocation->execute();
                 $location = $stmtLocation->fetchColumn() ?: 'Unknown Location';
 
+                $stmtAddedBy = $pdo->prepare('
+                    SELECT u.username
+                    FROM users u
+                    INNER JOIN concert_user cu ON u.user_id = cu.user_id
+                    WHERE cu.concert_id = :concert_id
+                    LIMIT 1
+                ');
+                $stmtAddedBy->bindParam(':concert_id', $concert['concert_id'], PDO::PARAM_INT);
+                $stmtAddedBy->execute();
+                $addedBy = $stmtAddedBy->fetchColumn() ?: 'Unknown';
+
                 $result[] = [
                     'title'    => $concert['title'],
                     'date'     => $concert['date'],
                     'images'   => $images,
-                    'addedBy'  => $concert['username'] ?? 'unknown',
+                    'addedBy'  => $addedBy,
                     'genre'    => $genre,
                     'venue'    => $venue,
-                    'location' => $location
+                    'location' => $location,
+                    'artist'   => $artist
+
                 ];
             }
 

@@ -74,7 +74,7 @@
                         <input type="text" id="location" name="location" placeholder="City, Country" >
                     </div>
                     <div class="file-upload">
-                        <input type="file" id="profile-pic-input" class="file-input" accept="image/*" multiple>
+                        <input type="file" id="profile-pic-input" class="file-input" name="images[]" accept="image/*" multiple>
                         <label for="profile-pic-input" class="edit-concert-button">Add Photos (.png or .jpeg)</label>
                         <span class="file-name">Nie wybrano pliku</span>
                     </div>
@@ -83,5 +83,19 @@
             </section>
         </main>
     </div>
+    <script>
+        const fileInput = document.getElementById('profile-pic-input');
+        const fileNameSpan = document.querySelector('.file-name');
+
+        fileInput.addEventListener('change', () => {
+            const files = Array.from(fileInput.files);
+            if (files.length > 0) {
+                const names = files.map(file => file.name).join(', ');
+                fileNameSpan.textContent = names;
+            } else {
+                fileNameSpan.textContent = 'Nie wybrano pliku';
+            }
+        });
+    </script>
 </body>
 </html>

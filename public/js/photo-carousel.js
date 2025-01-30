@@ -1,5 +1,4 @@
 function initializeCarousel(carousel) {
-    console.log('Carousel:', carousel);
     const track = carousel.querySelector(".carousel-track");
     const prevButton = carousel.querySelector(".carousel-button.prev");
     const nextButton = carousel.querySelector(".carousel-button.next");

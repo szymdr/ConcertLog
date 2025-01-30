@@ -108,7 +108,6 @@
                                 <p><strong>Date:</strong> <?= htmlspecialchars($concert->getDate()); ?></p>
                                 <p><strong>Venue:</strong> <?= htmlspecialchars($concert->getVenue()); ?></p>
                                 <p><strong>Location:</strong> <?= htmlspecialchars($concert->getLocation()); ?></p>
-                                <button class="edit-concert-button" onclick="openEditConcertPopup()">Edit</button>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -157,29 +156,6 @@
         });
     });
 </script>
-
-<div id="edit-concert-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-button" onclick="closeEditConcertPopup()">&times;</span>
-        <h1>Edit Concert</h1>
-        <form class="popup-form" action="saveConcertChanges" method="POST">
-            <input type="hidden" id="concert-id" name="concert-id">
-            <div class="form-group">
-                <label for="concert-title">Title</label>
-                <input type="text" id="concert-title" name="concert-title">
-            </div>
-            <div class="form-group">
-                <label for="concert-artist">Artist</label>
-                <input type="text" id="concert-artist" name="concert-artist">
-            </div>
-            <div class="form-group">
-                <label for="concert-date">Date</label>
-                <input type="date" id="concert-date" name="concert-date">
-            </div>
-            <button type="submit" class="save-button">Save Changes</button>
-        </form>
-    </div>
-</div>
 </html>
 
 

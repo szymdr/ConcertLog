@@ -11,56 +11,56 @@ section {
 
 h1 {
     margin: auto;
-    font-size: 24px;
+    font-size: 1.5em;
     color: #333;
 }
 
 .add-concert-form {
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 37.5em;
     margin: 0 auto;
     background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 0.0625em solid #ddd;
+    border-radius: 0.5em;
+    padding: 1.25em;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 0.9375em;
     width: 100%;
 }
 
 .form-group label {
     display: block;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 0.3125em;
     color: #555;
 }
 
 .form-group input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 0.625em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.25em;
+    font-size: 0.875em;
     box-sizing: border-box;
 }
 
 .form-group input:focus {
     border-color: #007bff;
     outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 0.25em rgba(0, 123, 255, 0.5);
 }
 
 .submit-button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 16px;
+    padding: 0.625em 1.25em;
+    border-radius: 0.25em;
+    font-size: 1em;
     cursor: pointer;
     display: block;
     margin: 0 auto;
@@ -71,7 +71,7 @@ h1 {
 }
 
 .search-bar {
-    margin-bottom: 20px;
+    margin-bottom: 1.25em;
     text-align: center;
 }
 
@@ -82,22 +82,22 @@ h1 {
 }
 
 .search-bar input {
-    padding: 10px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    font-size: 14px;
+    padding: 0.625em;
+    width: 18.75em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.25em;
+    margin-right: 0.625em;
+    font-size: 0.875em;
 }
 
 .search-button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
+    padding: 0.625em 0.9375em;
+    border-radius: 0.25em;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875em;
 }
 
 .search-button:hover {
@@ -108,17 +108,17 @@ h1 {
     background-color: #555;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125em;
     padding: 0.5em;
-    font-size: 14px;
+    font-size: 0.875em;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 /* Stylizacja sekcji dodawania zdjęć */
 .form-group input[type="file"] {
-    padding: 5px;
-    font-size: 14px;
+    padding: 0.3125em;
+    font-size: 0.875em;
 }
 
 /* Ukrywanie domyślnego inputu pliku */
@@ -138,11 +138,11 @@ h1 {
 .file-upload label.edit-concert-button {
     /* Ponieważ używamy już klasy .edit-concert-button, dodatkowe style nie są konieczne */
     /* Możesz dodać dodatkowe style tutaj, jeśli chcesz */
-    margin-right: 1em; /* Przestrzeń między przyciskiem a nazwą pliku */
+    margin-right: 0.0625em; /* Przestrzeń między przyciskiem a nazwą pliku */
 }
 
 /* Stylowanie elementu wyświetlającego nazwę pliku */
 .file-name {
-    font-size: 14px;
+    font-size: 0.875em;
     color: #555;
 }

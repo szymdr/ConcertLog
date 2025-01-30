@@ -25,7 +25,6 @@ searchInput.addEventListener("keyup", function (event) {
 });
 
 function loadConcerts(concerts) {
-    console.log('Concerts received:', concerts);
     concerts.forEach(concert => {
         createConcert(concert);
     });
@@ -38,7 +37,6 @@ function createConcert(concert) {
         return;
     }
     const clone = template.content.cloneNode(true);
-    console.log('Cloned template:', clone);
 
     // Fill in images
     const carousel = clone.querySelector(".carousel");
@@ -47,7 +45,6 @@ function createConcert(concert) {
         return;
     }
     const carouselTrack = carousel.querySelector(".carousel-track");
-    console.log('Carousel Track:', carouselTrack);
     carouselTrack.innerHTML = ""; // Clear placeholder image
 
     concert.images.forEach(img => {
@@ -86,7 +83,6 @@ function createConcert(concert) {
     if (addedByElement) addedByElement.innerHTML = `<strong>Added by:</strong> ${concert.addedBy}`;
 
     feedContainer.appendChild(clone);
-    console.log('Appended clone:', clone);  
 
     initializeCarousel(carousel);
 }
