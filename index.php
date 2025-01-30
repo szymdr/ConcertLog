@@ -14,6 +14,7 @@ Router::get('changepassword', 'DefaultController');
 Router::get('addconcert', 'DefaultController');
 Router::get('profile', 'DefaultController');
 Router::get('settings', 'DefaultController');
+Router::get('adminpage', 'DefaultController');
 
 Router::post('login', 'SecurityController');
 Router::post('signup', 'SecurityController');
@@ -23,5 +24,6 @@ Router::post('createConcert', 'ConcertController');
 Router::get('search', 'ConcertController');
 
 Router::post('saveProfileChanges', 'UserController');
+Router::post('removeUser', 'UserController');
 
 Router::run($path);

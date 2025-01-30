@@ -9,9 +9,13 @@ class AppController {
         
         // Allow these actions without a session
         $allowedRoutes = ['login', 'signup', 'changepassword'];
+        $adminRoutes = ['adminpage', 'logout', 'removeUser'];
         
         $currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $currentRoute = trim($currentRoute, '/'); 
+        
+        // Log the current route for debugging
+        error_log("Current Route: " . $currentRoute);
         
         if (!isset($_SESSION['user_id'])) {
             if(!in_array($currentRoute, $allowedRoutes)) {
@@ -20,9 +24,19 @@ class AppController {
             }
         }
         else {
-            if (in_array($currentRoute, $allowedRoutes)) {
-                header('Location: /feed');
-                exit();
+            if($_SESSION['userType'] == 'admin') {
+                if(!in_array($currentRoute, $adminRoutes))
+                {
+                    header('Location: /adminpage');
+                    exit();
+                }
+            }
+            else{
+                if (in_array($currentRoute, $allowedRoutes) || $currentRoute == 'adminpage') {  
+                    header('Location: /feed');
+                    exit();
+                }
+
             }
         }
         $this->request = $_SERVER['REQUEST_METHOD'];

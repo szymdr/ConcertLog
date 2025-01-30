@@ -3,6 +3,7 @@
 require_once 'AppController.php';
 require_once __DIR__.'/../repository/ConcertRepository.php';
 require_once __DIR__.'/../repository/StatisticsRepository.php';
+require_once __DIR__.'/../repository/UserRepository.php';
 
 class DefaultController extends AppController {
 
@@ -39,5 +40,12 @@ class DefaultController extends AppController {
     public function settings()
     {
         $this->render('settings');
+    }
+
+    public function adminpage()
+    {
+        $userRepository = new UserRepository();
+        $users = $userRepository->getAllUsers();
+        $this->render('adminpage', ['users' => $users]);
     }
 }

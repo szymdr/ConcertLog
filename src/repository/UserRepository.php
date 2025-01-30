@@ -37,6 +37,27 @@ class UserRepository extends Repository
         return $return_user;
     }
 
+    public function getAllUsers(): array {
+        $stmt = $this->database->connect()->prepare('
+            SELECT *
+            FROM users
+            LEFT JOIN user_details ON users.user_details_id = user_details.user_details_id
+            ORDER BY users.user_id
+        ');
+        $stmt->execute();
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $return_users = [];
+        foreach ($users as $user) {
+            $return_users[] = new User(
+                $user['username'],  
+                $user['email'],
+                $user['password_hash']
+            );
+        }
+        return $users;
+    }
+
     public function addUser(User $user)
     {
         $pdo = $this->database->connect();
@@ -126,7 +147,7 @@ class UserRepository extends Repository
         }
     }
 
-    public function removeUser(User $user)
+    public function removeUser($email)
     {
         $pdo = $this->database->connect();
         $pdo->beginTransaction();
@@ -135,7 +156,6 @@ class UserRepository extends Repository
             $stmt = $pdo->prepare('
                 DELETE FROM users WHERE email = :email
             ');
-            $email = $user->getEmail();
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -154,6 +174,23 @@ class UserRepository extends Repository
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchColumn();
+    }
+
+    public function getRole(string $email) {
+        $stmt = $this->database->connect()->prepare('
+            SELECT * FROM users WHERE email = :email
+        ');
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = $this->database->connect()->prepare('
+            SELECT * FROM user_types WHERE user_type_id = :user_type_id
+        ');
+        $stmt->bindParam(':user_type_id', $user['user_type_id'], PDO::PARAM_INT);
+        $stmt->execute();
+        $role = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $role['type_name'];
     }
     
     private function updateTimestamp(PDO $pdo, string $email)

@@ -26,7 +26,6 @@ class SecurityController extends AppController {
         if (isset($_POST['sign-in'])) {
     
             $user = $this->userRepository->getUser($email);
-            // $user = new User('admin', 'admin@admin.com', 'admin');
 
             if (!$user) {
                 return $this->render('login', ['messages' => ['User not found!'], 'email' => [$email]]);
@@ -44,19 +43,20 @@ class SecurityController extends AppController {
                     'email' => [$email]
                 ]);
             } else {
-
                 session_start();
+                $_SESSION['userType'] = $this->userRepository->getRole($email);
                 $_SESSION['user_id'] = $this->userRepository->getUserID($email);
                 $_SESSION['email'] = $email;
                 $_SESSION['username'] = $user->getUsername();
                 $_SESSION['profile_picture'] = $user->getProfilePicture();
                 $url = "http://$_SERVER[HTTP_HOST]";
-                header("Location: {$url}/feed");
-                exit();
+
+                    header("Location: {$url}/feed");
+                    exit();
             }
-          } else {
+        } else {
             return $this->render('signup', ['email' => [$email]]);
-          }
+        }
     }   
     public function signup()
     {

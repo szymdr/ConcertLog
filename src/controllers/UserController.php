@@ -51,6 +51,16 @@ class UserController extends AppController {
         $this->render('profile', ['statistics'=> $this->statisticsRepository->getUserStatistics($_SESSION['user_id']), 'concerts' => $concerts]);
     }
 
+    public function removeUser(): void
+    {
+        if (!$this->isPost()) {
+            return;
+        }
+        $email = $_POST['email'];
+        $this->userRepository->removeUser($email);
+        $this->render('adminpage', ['users' => $this->userRepository->getAllUsers()]);
+    }
+
     private function validate(array $file): bool
     {
         if ($file['size'] > self::MAX_FILE_SIZE) {
