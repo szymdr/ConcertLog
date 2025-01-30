@@ -39,36 +39,46 @@ class UserRepository extends Repository
 
     public function addUser(User $user)
     {
-        $defaultProfilePicture = 'default_profile_picture.png';
+        $pdo = $this->database->connect();
+        $pdo->beginTransaction();
 
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO user_details (profile_picture, bio)
-            VALUES (?, ?) RETURNING user_details_id
-        ');
+        try {
+            $defaultProfilePicture = 'default_profile_picture.png';
 
-        $stmt->execute([
-            $defaultProfilePicture,
-            null
-        ]);
+            $stmt = $pdo->prepare('
+                INSERT INTO user_details (profile_picture, bio)
+                VALUES (?, ?) RETURNING user_details_id
+            ');
 
-        $userDetailsId = $stmt->fetchColumn();
+            $stmt->execute([
+                $defaultProfilePicture,
+                null
+            ]);
 
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO users (username, email, password_hash, user_details_id) 
-            VALUES (?, ?, ?, ?)
-        ');
+            $userDetailsId = $stmt->fetchColumn();
 
-        $stmt->execute([
-            $user->getUsername(),
-            $user->getEmail(),
-            $user->getPassword(),
-            $userDetailsId
-        ]);
+            $stmt = $pdo->prepare('
+                INSERT INTO users (username, email, password_hash, user_details_id) 
+                VALUES (?, ?, ?, ?)
+            ');
+
+            $stmt->execute([
+                $user->getUsername(),
+                $user->getEmail(),
+                $user->getPassword(),
+                $userDetailsId
+            ]);
+
+            $pdo->commit();
+        } catch (\Exception $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
     }
 
     public function setUsername(string $email, string $username)
     {
-        $pdo = $this->database->connect(); // Single PDO instance
+        $pdo = $this->database->connect();
         $pdo->beginTransaction();
 
         try {
@@ -93,7 +103,7 @@ class UserRepository extends Repository
 
     public function setProfilePicture(string $email, string $profilePicture)
     {
-        $pdo = $this->database->connect(); // Single PDO instance
+        $pdo = $this->database->connect();
         $pdo->beginTransaction();
 
         try {
@@ -116,25 +126,26 @@ class UserRepository extends Repository
         }
     }
 
-    private function updateTimestamp(PDO $pdo, string $email)
-    {
-        $stmt = $pdo->prepare('
-            UPDATE users SET updated_at = NOW()
-            WHERE email = :email
-        ');
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
-    }
-
     public function removeUser(User $user)
     {
-        $stmt = $this->database->connect()->prepare('
-            DELETE FROM users WHERE email = :email
-        ');
-        $email = $user->getEmail();
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
+        $pdo = $this->database->connect();
+        $pdo->beginTransaction();
+
+        try {
+            $stmt = $pdo->prepare('
+                DELETE FROM users WHERE email = :email
+            ');
+            $email = $user->getEmail();
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $pdo->commit();
+        } catch (\Exception $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
     }
+
     public function getUserID(string $email): int
     {
         $stmt = $this->database->connect()->prepare('
@@ -143,5 +154,15 @@ class UserRepository extends Repository
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchColumn();
+    }
+    
+    private function updateTimestamp(PDO $pdo, string $email)
+    {
+        $stmt = $pdo->prepare('
+            UPDATE users SET updated_at = NOW()
+            WHERE email = :email
+        ');
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
     }
 }
