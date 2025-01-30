@@ -8,7 +8,9 @@ class DefaultController extends AppController {
 
     public function index()
     {
-        $this->render('login', ['email' => ['']]);
+        $concertRepository = new ConcertRepository();
+        $concerts = $concertRepository->getConcerts();
+        $this->render('feed', ['concerts' => $concerts]);  
     }
     public function feed()
     {
@@ -19,10 +21,6 @@ class DefaultController extends AppController {
     public function changepassword()
     {
         $this->render('changepassword');
-    }
-    public function friends()
-    {
-        $this->render('friends');
     }
     public function addconcert()
     {

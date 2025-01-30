@@ -137,7 +137,7 @@
                     <input type="text" id="username" name="username" placeholder="New username">
                 </div>
                 <div class="file-upload">
-                    <input type="file" id="profile-pic-input" class="file-input" accept="image/*">
+                    <input type="file" id="profile-pic-input" name="profile-picture"" class="file-input" accept="image/*">
                     <label for="profile-pic-input" class="edit-concert-button">Wybierz zdjęcie profilowe</label>
                     <span class="file-name">Nie wybrano pliku</span>
                 </div>
@@ -146,6 +146,21 @@
         </div>
     </div>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fileInput = document.getElementById('profile-pic-input');
+        const fileNameSpan = document.querySelector('.file-name');
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileNameSpan.textContent = fileInput.files[0].name;
+            } else {
+                fileNameSpan.textContent = 'Nie wybrano pliku';
+            }
+        });
+    });
+</script>
 
 <div id="edit-concert-popup" class="popup">
     <div class="popup-content">

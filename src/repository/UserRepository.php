@@ -68,25 +68,61 @@ class UserRepository extends Repository
 
     public function setUsername(string $email, string $username)
     {
-        $stmt = $this->database->connect()->prepare('
-            UPDATE users
-            SET username = :username
-            WHERE email = :email
-        ');
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->execute();
+        $pdo = $this->database->connect(); // Single PDO instance
+        $pdo->beginTransaction();
+
+        try {
+            // Aktualizacja nazwy użytkownika w tabeli users
+            $stmt = $pdo->prepare('
+                UPDATE users SET username = :username
+                WHERE email = :email
+            ');
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Aktualizacja kolumny updated_at w tabeli users
+            $this->updateTimestamp($pdo, $email);
+
+            $pdo->commit();
+        } catch (\Exception $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
     }
 
     public function setProfilePicture(string $email, string $profilePicture)
     {
-        $stmt = $this->database->connect()->prepare('
-            UPDATE user_details SET profile_picture = :profile_picture
-            WHERE user_details_id = (SELECT user_details_id FROM users WHERE email = :email)
-        ');
+        $pdo = $this->database->connect(); // Single PDO instance
+        $pdo->beginTransaction();
 
+        try {
+            // Aktualizacja zdjęcia profilowego w tabeli user_details
+            $stmt = $pdo->prepare('
+                UPDATE user_details SET profile_picture = :profile_picture
+                WHERE user_details_id = (SELECT user_details_id FROM users WHERE email = :email)
+            ');
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':profile_picture', $profilePicture, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Aktualizacja kolumny updated_at w tabeli users
+            $this->updateTimestamp($pdo, $email);
+
+            $pdo->commit();
+        } catch (\Exception $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
+    }
+
+    private function updateTimestamp(PDO $pdo, string $email)
+    {
+        $stmt = $pdo->prepare('
+            UPDATE users SET updated_at = NOW()
+            WHERE email = :email
+        ');
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->bindParam(':profile_picture', $profilePicture, PDO::PARAM_STR);
         $stmt->execute();
     }
 

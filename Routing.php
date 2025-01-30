@@ -19,7 +19,7 @@ class Router {
   public static function run ($url) {
     $action = explode("/", $url)[0];
     if (!array_key_exists($action, self::$routes)) {
-      die("Wrong url!");
+      die("The page you are looking for does not exist!");
     }
 
     $controller = self::$routes[$action];

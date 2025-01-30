@@ -11,7 +11,6 @@ $router = new Router();
 Router::get('', 'DefaultController');
 Router::get('feed', 'DefaultController');
 Router::get('changepassword', 'DefaultController');
-Router::get('friends', 'DefaultController');
 Router::get('addconcert', 'DefaultController');
 Router::get('profile', 'DefaultController');
 Router::get('settings', 'DefaultController');
