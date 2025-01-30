@@ -237,7 +237,7 @@ main {
 }
 
 .edit-concert-button {
-    background-color: #007bff;
+    background-color: #555;
     color: white;
     border: none;
     border-radius: 5px;
@@ -245,9 +245,34 @@ main {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 0.5em;
 }
 
 .edit-concert-button:hover {
-    background-color: #0056b3;
+    background-color: #333;
+}
+
+/* Ukrywanie domyślnego inputu pliku */
+.file-input {
+    display: none;
+}
+
+/* Stylowanie kontenera dla uploadu pliku */
+.file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 1em 0; /* Dostosuj margines w razie potrzeby */
+}
+
+/* Stylowanie niestandardowego przycisku pliku */
+.file-upload label.edit-concert-button {
+    /* Ponieważ używamy już klasy .edit-concert-button, dodatkowe style nie są konieczne */
+    /* Możesz dodać dodatkowe style tutaj, jeśli chcesz */
+    margin-right: 1em; /* Przestrzeń między przyciskiem a nazwą pliku */
+}
+
+/* Stylowanie elementu wyświetlającego nazwę pliku */
+.file-name {
+    font-size: 14px;
+    color: #555;
 }

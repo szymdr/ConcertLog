@@ -46,19 +46,12 @@
             </ul>
         </nav>
         <main>
-            <header>
-                <div class="search-bar">
-                    <form>
-                        <input placeholder="Search" type="text">
-                    </form>
-                </div>
-            </header>
             <div class="profile-container">
                 <section class="profile">
                     <div class="profile-header">
                         <img src="public/uploads/<?=$_SESSION['profile_picture']?>" alt="Profile Picture" class="profile-picture">
                         <h1 class="profile-name"><?=$_SESSION['username']?></h1>
-                        <button class="edit-profile-button" onclick="openPopup()">Edit Profile</button>
+                        <button class="edit-profile-button" onclick="openPopup()"><i class="fa-solid fa-gear"></i></button>
                     </div>
                     <div class="profile-stats">
                         <div class="stat">
@@ -140,12 +133,13 @@
             <h1>Edit Profile</h1>
             <form class="popup-form" action="saveProfileChanges" method="POST" ENCTYPE="multipart/form-data">
                 <div class="form-group">
-                    <label for="profile-picture">Change Profile Picture</label>
-                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
-                </div>
-                <div class="form-group">
                     <label for="username">Change Username</label>
                     <input type="text" id="username" name="username" placeholder="New username">
+                </div>
+                <div class="file-upload">
+                    <input type="file" id="profile-pic-input" class="file-input" accept="image/*">
+                    <label for="profile-pic-input" class="edit-concert-button">Wybierz zdjęcie profilowe</label>
+                    <span class="file-name">Nie wybrano pliku</span>
                 </div>
                 <button type="submit" class="save-button">Save Changes</button>
             </form>

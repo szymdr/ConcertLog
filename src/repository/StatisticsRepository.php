@@ -15,6 +15,10 @@ class StatisticsRepository extends Repository
 
         $lastConcert = $stmtLastConcert->fetch(PDO::FETCH_ASSOC);
 
+        if (empty($lastConcert)) {
+            $lastConcert['title'] = '';
+        }
+
         //get number of attended concerts
         $stmtConcertsAttended = $this->database->connect()->prepare('
             SELECT COUNT(*) FROM concerts WHERE date < NOW()
@@ -22,12 +26,20 @@ class StatisticsRepository extends Repository
         $stmtConcertsAttended->execute();
         $concertsAttended = $stmtConcertsAttended->fetch(PDO::FETCH_ASSOC);
 
+        if (empty($concertsAttended)) {
+            $concertsAttended['count'] = 0;
+        }
+
         //get number of artists seen
         $stmtArtistsSeen = $this->database->connect()->prepare('
             SELECT COUNT(DISTINCT artist_id) FROM concert_artist
         ');
         $stmtArtistsSeen->execute();
         $artistsSeen = $stmtArtistsSeen->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($artistsSeen)) {
+            $artistsSeen['count'] = 0;
+        }
 
         //get number of concerts per year
         $stmtConcertsPerYear = $this->database->connect()->prepare('
@@ -130,6 +142,10 @@ class StatisticsRepository extends Repository
         $stmtLastConcert->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmtLastConcert->execute();
         $lastConcert = $stmtLastConcert->fetch(PDO::FETCH_ASSOC);
+
+        if(empty($lastConcert)) {
+            $lastConcert['title'] = 'No concerts attended yet';
+        }
     
         // Number of concerts attended by the user
         $stmtConcertsAttended = $this->database->connect()->prepare('
@@ -142,6 +158,11 @@ class StatisticsRepository extends Repository
         $stmtConcertsAttended->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmtConcertsAttended->execute();
         $concertsAttended = $stmtConcertsAttended->fetch(PDO::FETCH_ASSOC);
+
+        if(empty($concertsAttended)) {
+            $concertsAttended['count'] = 0;
+        }
+
     
         // Number of distinct artists seen by the user
         $stmtArtistsSeen = $this->database->connect()->prepare('
@@ -154,6 +175,10 @@ class StatisticsRepository extends Repository
         $stmtArtistsSeen->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmtArtistsSeen->execute();
         $artistsSeen = $stmtArtistsSeen->fetch(PDO::FETCH_ASSOC);
+
+        if(empty($artistsSeen)) {
+            $artistsSeen['count'] = 0;
+        }
     
         // Number of concerts per year for the user
         $stmtConcertsPerYear = $this->database->connect()->prepare('
@@ -222,7 +247,9 @@ class StatisticsRepository extends Repository
             $stmt->bindParam(':genre_id', $topGenres[$i]['genre_id'], PDO::PARAM_INT);
             $stmt->execute();
             $genre = $stmt->fetch(PDO::FETCH_ASSOC);
-            $topGenresArray[$genre['name']] = $topGenres[$i]['count'];
+            if($genre) {
+                $topGenresArray[$genre['name']] = $topGenres[$i]['count'];
+            }
         }
 
         // Get top 5 locations for this user
@@ -249,7 +276,9 @@ class StatisticsRepository extends Repository
             $stmt->bindParam(':venue_id', $topLocations[$i]['venue_id'], PDO::PARAM_INT);
             $stmt->execute();
             $location = $stmt->fetch(PDO::FETCH_ASSOC);
-            $topVenuesArray[$location['name']] = $topLocations[$i]['count'];
+            if($location) {
+                $topVenuesArray[$location['name']] = $topLocations[$i]['count'];
+            }
         }
 
         $statistics = new Statistics(

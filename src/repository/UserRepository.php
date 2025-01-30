@@ -66,6 +66,18 @@ class UserRepository extends Repository
         ]);
     }
 
+    public function setUsername(string $email, string $username)
+    {
+        $stmt = $this->database->connect()->prepare('
+            UPDATE users
+            SET username = :username
+            WHERE email = :email
+        ');
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
     public function setProfilePicture(string $email, string $profilePicture)
     {
         $stmt = $this->database->connect()->prepare('
@@ -76,10 +88,6 @@ class UserRepository extends Repository
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':profile_picture', $profilePicture, PDO::PARAM_STR);
         $stmt->execute();
-    }
-
-    public function saveProfileChanges(User $user) {
-        ;
     }
 
     public function removeUser(User $user)

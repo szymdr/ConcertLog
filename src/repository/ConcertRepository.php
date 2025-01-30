@@ -113,9 +113,8 @@ class ConcertRepository extends Repository
         ');
         $stmConcertUser->execute([
             $concertId,
-            $_SESSION['user_id']
-        ]);
-        
+            $concert->getAddedBy()
+        ]);        
     }
 
     public function getConcerts(): array
@@ -129,6 +128,18 @@ class ConcertRepository extends Repository
         $concerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
         foreach ($concerts as $concert) {
+            // Fetch the first user_id associated with this concert
+            $stmtUser = $this->database->connect()->prepare('
+                SELECT u.username
+                FROM users u
+                INNER JOIN concert_user cu ON u.user_id = cu.user_id
+                WHERE cu.concert_id = :concert_id
+                LIMIT 1
+            ');
+            $stmtUser->bindParam(':concert_id', $concert['concert_id'], PDO::PARAM_INT);
+            $stmtUser->execute();
+            $addedBy = $stmtUser->fetchColumn() ?: 'Unknown';
+
             $stmtConcertArtist = $this->database->connect()->prepare('
                 SELECT artist_id FROM concert_artist WHERE concert_id = :concert_id
             ');
@@ -190,15 +201,19 @@ class ConcertRepository extends Repository
                 $images = ['default_concert.jpg'];
             }
     
-            $result[] = new Concert(
+            $singleConcert = new Concert(
                 $artist,
                 $concert['date'],
                 $concert['title'],
                 $genre,
                 $venue,
                 $location,
-                $images
+                $images,
+                $addedBy
             );
+            $singleConcert->setConcertId($concert['concert_id']);
+            
+            $result[] = $singleConcert;
         }
     
         return $result;
@@ -221,6 +236,7 @@ class ConcertRepository extends Repository
         $concerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
         foreach ($concerts as $concert) {
+
             $stmtConcertArtist = $this->database->connect()->prepare('
                 SELECT artist_id FROM concert_artist WHERE concert_id = :concert_id
             ');
@@ -281,6 +297,16 @@ class ConcertRepository extends Repository
             if (empty($images)) {
                 $images = ['default_concert.jpg'];
             }
+
+            $stmtUsername = $this->database->connect()->prepare('
+                SELECT username FROM users WHERE user_id = :user_id
+            ');
+            $stmtUsername->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmtUsername->execute();
+            $username = $stmtUsername->fetchColumn();
+            if (!$username) {
+                $username = '';
+            }
     
             $result[] = new Concert(
                 $artist,
@@ -289,8 +315,59 @@ class ConcertRepository extends Repository
                 $genre,
                 $venue,
                 $location,
-                $images
+                $images,
+                $username
             );
+        }
+    
+        return $result;
+    }
+
+
+    public function getConcertByTitle(string $searchString): array
+    {
+        $searchString = '%' . strtolower($searchString) . '%';
+    
+        $stmt = $this->database->connect()->prepare('
+            SELECT c.*, u.username
+            FROM concerts c
+            LEFT JOIN concert_user cu ON c.concert_id = cu.concert_id
+            LEFT JOIN users u ON cu.user_id = u.user_id
+            WHERE LOWER(c.title) LIKE :search
+        ');
+        $stmt->bindParam(':search', $searchString, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $concerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        $result = [];
+        foreach ($concerts as $concert) {
+            // Fetch all images for this concert
+            $stmtImages = $this->database->connect()->prepare('
+                SELECT picture_path 
+                FROM concert_picture 
+                WHERE concert_id = :concert_id
+            ');
+            $stmtImages->bindParam(':concert_id', $concert['concert_id'], PDO::PARAM_INT);
+            $stmtImages->execute();
+            $images = $stmtImages->fetchAll(PDO::FETCH_COLUMN);
+    
+            if (empty($images)) {
+                $images = ['default_concert.jpg'];
+            }
+    
+            // Ustaw 'addedBy' na 'unknown' jeśli 'username' jest NULL
+            $addedBy = $concert['username'] ?? 'unknown';
+    
+            $result[] = [
+                'title'    => $concert['title'],
+                'date'     => $concert['date'],
+                'images'   => $images,
+                'addedBy'  => $addedBy,
+                'genre'    => $concert['genre_id'],
+                'venue'    => $concert['venue_id'],
+                'location' => $concert['location_id']
+            ];
         }
     
         return $result;

@@ -3,6 +3,7 @@ main {
 }
 
 section {
+    padding: 2em;
     align-items: center;
     justify-content: center;
     overflow-y: scroll;    
@@ -11,14 +12,12 @@ section {
 h1 {
     margin: auto;
     font-size: 24px;
-    margin-bottom: 20px;
     color: #333;
 }
 
 .add-concert-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     max-width: 600px;
     margin: 0 auto;
     background: #f9f9f9;
@@ -105,8 +104,45 @@ h1 {
     background-color: #0056b3;
 }
 
+.edit-concert-button {
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 /* Stylizacja sekcji dodawania zdjęć */
 .form-group input[type="file"] {
     padding: 5px;
     font-size: 14px;
+}
+
+/* Ukrywanie domyślnego inputu pliku */
+.file-input {
+    display: none;
+}
+
+/* Stylowanie kontenera dla uploadu pliku */
+.file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1em; /* Dostosuj margines w razie potrzeby */
+}
+
+/* Stylowanie niestandardowego przycisku pliku */
+.file-upload label.edit-concert-button {
+    /* Ponieważ używamy już klasy .edit-concert-button, dodatkowe style nie są konieczne */
+    /* Możesz dodać dodatkowe style tutaj, jeśli chcesz */
+    margin-right: 1em; /* Przestrzeń między przyciskiem a nazwą pliku */
+}
+
+/* Stylowanie elementu wyświetlającego nazwę pliku */
+.file-name {
+    font-size: 14px;
+    color: #555;
 }

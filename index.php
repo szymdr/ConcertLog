@@ -21,5 +21,8 @@ Router::post('signup', 'SecurityController');
 Router::get('logout', 'SecurityController');
 
 Router::post('createConcert', 'ConcertController');
+Router::get('search', 'ConcertController');
+
+Router::post('saveProfileChanges', 'UserController');
 
 Router::run($path);

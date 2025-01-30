@@ -2,6 +2,7 @@
 
 class Concert
 {
+    private $concertId;
     private $artist;
     private $date;
     private $title;
@@ -9,6 +10,7 @@ class Concert
     private $venue;
     private $location;
     private $images;
+    private $addedBy;
 
     public function __construct(
         string $artist,
@@ -17,7 +19,8 @@ class Concert
         string $genre,
         string $venue,
         string $location,
-        array $images
+        array $images,
+        string $addedBy
     ) {
         $this->artist = $artist;
         $this->date = $date;
@@ -26,6 +29,15 @@ class Concert
         $this->venue = $venue;
         $this->location = $location;
         $this->images = $images;
+        $this->addedBy = $addedBy;
+    }
+    public function getConcertId(): int
+    {
+        return $this->concertId;
+    }
+    public function setConcertId(int $concertId): void
+    {
+        $this->concertId = $concertId;
     }
     public function getArtist(): string
     {   
@@ -82,6 +94,14 @@ class Concert
     public function setImages(array $images): void
     {
         $this->images = $images;
+    }
+    public function getAddedBy(): string
+    {
+        return $this->addedBy;
+    }
+    public function setAddedBy(string $addedBy): void
+    {
+        $this->addedBy = $addedBy;
     }
 
 }

@@ -35,7 +35,7 @@ const data = {
 };
 
 const config = {
-    type: 'line',
+    type: 'bar',
     data: data,
     options: {
         responsive: true,

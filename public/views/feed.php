@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
     <script src="https://kit.fontawesome.com/7ae6ad35c3.js" crossorigin="anonymous"></script>
     <script src="public/js/photo-carousel.js" defer></script>
+    <script type="text/javascript" src="public/js/search.js" defer></script>
     <title>ConcertLog • Main Page</title>
 </head>
 <body>
@@ -43,9 +44,7 @@
         <main>
             <header>
                 <div class = "search-bar">
-                    <form>
-                        <input placeholder="Search">
-                    </form>
+                    <input placeholder="Search">
                 </div>
 
             </header>
@@ -69,6 +68,7 @@
                         <p><strong>Date:</strong> <?= htmlspecialchars($concert->getDate()); ?></p>
                         <p><strong>Venue:</strong> <?= htmlspecialchars($concert->getVenue()); ?></p>
                         <p><strong>Location:</strong> <?= htmlspecialchars($concert->getLocation()); ?></p>
+                        <p><strong>Added by:</strong> <?= htmlspecialchars($concert->getAddedBy()); ?></p>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -77,5 +77,28 @@
         </main>
     </div>
     
+
+
+    <template id="post-template">
+        <div class="post">
+            <div class="carousel">
+                <div class="carousel-track">
+                    <img src="" alt="Concert image">
+                    <!-- Additional images will be appended via JavaScript -->
+                </div>
+                <!-- Navigation buttons will be appended dynamically if needed -->
+            </div>
+            <div class="details">
+                <h2></h2>
+                <p class="artist"><strong>Artist:</strong></p>
+                <p class="date"><strong>Date:</strong></p>
+                <p class="venue"><strong>Venue:</strong></p>
+                <p class="location"><strong>Location:</strong></p>
+                <p class="added-by"><strong>Added by:</strong></p>
+            </div>
+        </div>
+    </template>
+
 </body>
+
 </html>

@@ -13,11 +13,18 @@ class AppController {
         $currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $currentRoute = trim($currentRoute, '/'); 
         
-        if (!isset($_SESSION['user_id']) && !in_array($currentRoute, $allowedRoutes)) {
-            header('Location: /login');
-            exit();
+        if (!isset($_SESSION['user_id'])) {
+            if(!in_array($currentRoute, $allowedRoutes)) {
+                header('Location: /login');
+                exit();
+            }
         }
-    
+        else {
+            if (in_array($currentRoute, $allowedRoutes)) {
+                header('Location: /feed');
+                exit();
+            }
+        }
         $this->request = $_SERVER['REQUEST_METHOD'];
     }
 

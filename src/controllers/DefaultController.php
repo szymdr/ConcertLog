@@ -30,16 +30,13 @@ class DefaultController extends AppController {
     }
     public function profile()
     {
-        $userRepository = new UserRepository();
-        $user = $userRepository->getUser($_SESSION['user_id']);
-
         $statisticsRepository = new StatisticsRepository();
         $statistics = $statisticsRepository->getUserStatistics($_SESSION['user_id']);
 
         $concertRepository = new ConcertRepository();
         $concerts = $concertRepository->getUserConcerts($_SESSION['user_id']);
 
-        $this->render('profile', ['statistics'=> $statistics, 'user' => $user, 'concerts' => $concerts]);
+        $this->render('profile', ['statistics'=> $statistics, 'concerts' => $concerts]);
     }
     public function settings()
     {

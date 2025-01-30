@@ -41,15 +41,9 @@
         </nav>
         <main>
             <header>
-                <div class="search-bar">
-                    <form>
-                        <input placeholder="Search concerts" type="text">
-                        <button type="submit" class="search-button">Search</button>
-                    </form>
-                </div>
+                <h1>Add a New Concert</h1>
             </header>
             <section class="add-concert">
-                <h1>Add a New Concert</h1>
                 <form action="createConcert" method="POST" ENCTYPE="multipart/form-data" class="add-concert-form">
                     <?php
                         if(isset($messages)){
@@ -83,9 +77,10 @@
                         <label for="location">Location</label>
                         <input type="text" id="location" name="location" placeholder="City, Country" >
                     </div>
-                    <div class="form-group">
-                        <label for="images">Add Photos (.png or .jpeg)</label>
-                        <input type="file" id="images" name="images[]" accept="image/*" multiple>
+                    <div class="file-upload">
+                        <input type="file" id="profile-pic-input" class="file-input" accept="image/*" multiple>
+                        <label for="profile-pic-input" class="edit-concert-button">Add Photos (.png or .jpeg)</label>
+                        <span class="file-name">Nie wybrano pliku</span>
                     </div>
                     <button type="submit" class="submit-button">Add Concert</button>
                 </form>
