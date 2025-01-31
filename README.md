@@ -49,17 +49,7 @@ ConcertLog to aplikacja webowa, która pozwala użytkownikom rejestrować i dzie
     docker-compose up --build
     ```
 
-4. **Zainicjuj bazę danych**:
-    - Uzyskaj dostęp do kontenera bazy danych:
-    ```sh
-    docker exec -it concertlog_db_1 bash
-    ```
-    - Uruchom skrypt SQL, aby zainicjować bazę danych:
-    ```sh
-    mysql -u root -p wdpai < /db/init_database.sql
-    ```
-
-5. **Uzyskaj dostęp do aplikacji**:
+4. **Uzyskaj dostęp do aplikacji**:
     - Otwórz przeglądarkę internetową i przejdź do `http://localhost:8080`.
 
 ## Utworzeni użytkownicy
