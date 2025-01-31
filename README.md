@@ -2,6 +2,15 @@
 
 ConcertLog to aplikacja webowa, która pozwala użytkownikom rejestrować i dzielić się swoimi doświadczeniami koncertowymi. Użytkownicy mogą dodawać nowe koncerty, przeglądać swoją historię koncertów oraz zobaczyć statystyki dotyczące swojej frekwencji na koncertach.
 
+## Spis treści
+
+1. [Funkcje](#funkcje)
+2. [Wymagania wstępne](#wymagania-wstępne)
+3. [Instalacja](#instalacja)
+4. [Utworzeni użytkownicy](#utworzeni-użytkownicy)
+5. [Diagram ERD bazy danych](#diagram-erd-bazy-danych)
+6. [Zrzuty ekranu z aplikacji](#zrzuty-ekranu-z-aplikacji)
+
 ## Funkcje
 
 - **Autoryzacja użytkowników**: Rejestracja, logowanie i wylogowywanie.
@@ -69,35 +78,35 @@ Poniżsi użytkownicy zostali utworzeni w celach testowych:
   - Email: admin@admin.com
   - Password: admin
 
-**Diagram ERD bazy danych:**
+## Diagram ERD bazy danych
 
 ![Diagram ERD](https://github.com/user-attachments/assets/596c9985-b716-4fc8-8f92-80070867a2a6)
 
-**Zrzuty ekranu z aplikacji:**
+## Zrzuty ekranu z aplikacji
 
-Strona główna:
+**Strona główna:**
 
 ![screenshot1](https://github.com/user-attachments/assets/341e8c29-cbf1-454a-8afb-8840ee43ecc9)
 ![screenshot2](https://github.com/user-attachments/assets/9be6ff60-dacd-4fb5-9248-1b76d7d7e83f)
 
-Profil:
+**Profil:**
 
 ![screenshot3](https://github.com/user-attachments/assets/1e82f146-2b23-457d-8680-360ba9884523)
 ![screenshot4](https://github.com/user-attachments/assets/832f1ac3-4d05-4dc3-8711-ad0e85473f88)
 
-Dodawanie koncertów:
+**Dodawanie koncertów:**
 
 ![screenshot5](https://github.com/user-attachments/assets/0b402aed-2642-444f-96a6-41575560f1d2)
 
-Ekrany logowania i rejestracji:
+**Ekrany logowania i rejestracji:**
 
 ![screenshot6](https://github.com/user-attachments/assets/694bf077-b964-4f66-9fa7-fbc5e9ec81a2)
 ![screenshot7](https://github.com/user-attachments/assets/d12bd45e-64cc-4abd-8ba1-498661bfffe7)
 
-Panel administratora:
+**Panel administratora:**
 
 ![screenshot8](https://github.com/user-attachments/assets/729db5d3-f720-46a4-b959-b3612e857376)
 
-Autor: Szymon Dral
+**Autor:** Szymon Dral
 
 Projekt realizowany na potrzeby zaliczenia przedmiotu Wstęp do projektowania aplikacji internetowych
