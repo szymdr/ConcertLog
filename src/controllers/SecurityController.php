@@ -54,8 +54,10 @@ class SecurityController extends AppController {
                     header("Location: {$url}/feed");
                     exit();
             }
-        } else {
+        } else if (isset($_POST['sign-up'])) {
             return $this->render('signup', ['email' => [$email]]);
+        } else {
+            return $this->render('login', ['email' => [$email]]);
         }
     }   
     public function signup()

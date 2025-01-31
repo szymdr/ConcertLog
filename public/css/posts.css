@@ -100,3 +100,39 @@ section {
 .details p strong {
     color: #000;
 }
+
+@media only screen and (max-width: 450px) {
+    section {
+        grid-template-columns: 1fr;
+        padding: 1em;
+        grid-gap: 1em;
+    }
+
+    .feed > .post {
+        max-width: 100%;
+        margin: 0 0.5em;
+    }
+
+    .carousel {
+        aspect-ratio: 1 / 1;
+    }
+
+    .carousel-button {
+        width: 2em;
+        height: 2em;
+        font-size: 1em;
+    }
+
+    .details {
+        padding: 0.5em;
+        font: 0.9em Arial, sans-serif;
+    }
+
+    .details h2 {
+        font-size: 1.2em;
+    }
+
+    .details p {
+        font-size: 0.85em;
+    }
+}

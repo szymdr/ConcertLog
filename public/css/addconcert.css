@@ -131,18 +131,64 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 1em; /* Dostosuj margines w razie potrzeby */
+    margin-bottom: 1em;
 }
 
 /* Stylowanie niestandardowego przycisku pliku */
 .file-upload label.edit-concert-button {
-    /* Ponieważ używamy już klasy .edit-concert-button, dodatkowe style nie są konieczne */
-    /* Możesz dodać dodatkowe style tutaj, jeśli chcesz */
-    margin-right: 0.0625em; /* Przestrzeń między przyciskiem a nazwą pliku */
+    margin-right: 0.0625em;
 }
 
 /* Stylowanie elementu wyświetlającego nazwę pliku */
 .file-name {
+    margin-left: 1em;
     font-size: 0.875em;
     color: #555;
+}
+
+@media (max-width: 450px) {
+    .add-concert-form {
+        padding: 1em;
+    }
+
+    .form-group input {
+        width: 100%;
+        font-size: 0.85em;
+    }
+
+    .submit-button,
+    .search-button,
+    .edit-concert-button {
+        width: 100%;
+        padding: 0.5em;
+        font-size: 0.85em;
+    }
+
+    .search-bar form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-bar input {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.5em;
+    }
+
+    .user-table {
+        font-size: 0.8em;
+    }
+
+    section {
+        padding: 1em;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    .profile-pic {
+        width: 2em;
+        height: 2em;
+    }
 }

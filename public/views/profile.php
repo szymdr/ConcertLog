@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/css/profile.css">
     <link rel="stylesheet" type="text/css" href="public/css/edit_profile_popup.css">
@@ -14,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <div class="base-container">
-        <nav>
+        <nav>   
             <img src="public/img/logo-nazwa-biala.svg" alt="Logo">
             <ul>
                 <li>
